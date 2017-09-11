@@ -30,6 +30,12 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+gem 'httparty', '~> 0.15.6'
+
+gem 'nokogiri', '~> 1.8'
+
+gem 'watir', '~> 6.8', '>= 6.8.4'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
