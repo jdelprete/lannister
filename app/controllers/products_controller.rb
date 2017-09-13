@@ -11,6 +11,6 @@ class ProductsController < ApplicationController
 
   def create
     product_url = params[:url]
-    Product.from_url(product_url)
+    Product.create_from_url(product_url)
   end
 end
