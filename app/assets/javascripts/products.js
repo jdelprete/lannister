@@ -15,5 +15,9 @@ $(function() {
     $tabLink.parents('.product').find('.tabs-body').hide();
     $tabLink.parents('.product').find('.' + tabBodyClass).show();
   });
+
+  $('.image-select').on('click', function(e) {
+    $(this).toggleClass('selected');
+  });
 });
 
