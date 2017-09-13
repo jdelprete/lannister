@@ -1,0 +1,39 @@
+<div class="tabs-body images-tab">
+  <div style="height: 550px; overflow: auto;">
+    <div class="panel small-padding margin-small-top margin-bottom attention-panel">
+      <div class="panel-body">
+        <div class="container-flex flex-between">
+          <div class="container-flex">
+            <div class="svg-container no-shrink">
+              <svg class="icon-attention-circle margin-small-right">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/app-icons.svg#icon-attention-circle"></use>
+              </svg>
+            </div>
+            <div class="ml5 mr10">
+              Shopify limits product images amount. This product has <%= images.size %>. Please choose up to 250.
+              <span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <% images.each_with_index do |img, i| %>
+        <% if i % 4 == 0 %><div class="row space-bottom"><% end %>
+          <div class="col-xs-3">
+            <div class="image-select <% if i == 0 %>selected<% end %>">
+              <div class="product-img">
+                <div class="product-img-action"><img src="<%= img.url %>" class="border-img">
+                  <div class="icon-selected-box align-center">
+                    <svg class="icon-selected">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/app-icons.svg#icon-selected"></use>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% if i % 4 == 3 || i == images.size - 1 %></div><% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,310 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Lannister</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
 
-  <body>
-    <%= yield %>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://cdn.oberlo.com/build/vendor.6f37a47c885d885d00a8.css"/>
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/hmanipjnbjnhoicdnooapcnfonebefel">
+    <script>
+      window.dataLayer = [{
+          'oberloUserId': 315151,
+          'signUp': '',
+          'storeAssigned': '',
+          'confirmedSale': 1,
+          'hasBecomeMerchant': ''
+      }];
+    </script>
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://app.oberlo.com/apple-touch-icon-57x57.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://app.oberlo.com/apple-touch-icon-114x114.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://app.oberlo.com/apple-touch-icon-72x72.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://app.oberlo.com/apple-touch-icon-144x144.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="https://app.oberlo.com/apple-touch-icon-60x60.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://app.oberlo.com/apple-touch-icon-120x120.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="https://app.oberlo.com/apple-touch-icon-76x76.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://app.oberlo.com/apple-touch-icon-152x152.png?v=2">
+    <link rel="icon" type="image/png" href="https://app.oberlo.com/favicon-196x196.png?v=2" sizes="196x196">
+    <link rel="icon" type="image/png" href="https://app.oberlo.com/favicon-96x96.png?v=2" sizes="96x96">
+    <link rel="icon" type="image/png" href="https://app.oberlo.com/favicon-32x32.png?v=2" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://app.oberlo.com/favicon-16x16.png?v=2" sizes="16x16">
+    <link rel="icon" type="image/png" href="https://app.oberlo.com/favicon-128.png?v=2" sizes="128x128">
+    <meta name="application-name" content="&nbsp;">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="https://app.oberlo.com/mstile-144x144.png?v=2">
+    <meta name="msapplication-square70x70logo" content="https://app.oberlo.com/mstile-70x70.png?v=2">
+    <meta name="msapplication-square150x150logo" content="https://app.oberlo.com/mstile-150x150.png?v=2">
+    <meta name="msapplication-wide310x150logo" content="https://app.oberlo.com/mstile-310x150.png?v=2">
+    <meta name="msapplication-square310x310logo" content="https://app.oberlo.com/mstile-310x310.png?v=2">
+  </head>
+  <body class="fix-top-menu">
+    <div id="app">
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header" v-pre>
+            <a href="#" onclick="return false;" class="navbar-brand container-flex">
+              <svg class="icon icon-sidebar-products margin-small-right">
+                <use xlink:href="/img/app-icons.svg#icon-sidebar-products"></use>
+              </svg>
+              Manage Products
+            </a>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="" v-pre>
+              <a href="https://app.oberlo.com/explore">Search Products
+              </a>
+            </li>
+            <li class="" v-pre>
+              <a href="https://app.oberlo.com/suppliers">Oberlo Supply
+              </a>
+            </li>
+            <li class=" active " v-pre>
+              <a href="https://app.oberlo.com/import">Import List <span class="badge badge-primary">3</span></a>
+            </li>
+            <li class="" v-pre>
+              <a href="https://app.oberlo.com/products">My Products <span class="badge badge-success">32</span></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="sidebar-main">
+        <a href="https://app.oberlo.com/dashboard" class="sidebar-logo">
+          <svg class="icon-logo">
+            <use xlink:href="/img/app-icons.svg#icon-logo"></use>
+          </svg>
+        </a>
+        <nav class="nav-sidebar top">
+          <ul class="nav-sidebar-menu">
+            <li v-pre>
+              <a href="https://app.oberlo.com/dashboard" class="" target="">
+                <svg class="icon icon-dashboard">
+                  <use xlink:href="/img/app-icons.svg#icon-dashboard"></use>
+                </svg>
+              </a>
+              <ul class="sub-menu ">
+                <li>
+                  <a href="https://app.oberlo.com/dashboard" target="" class="">Dashboard
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li v-pre>
+              <a href="https://app.oberlo.com/explore" class=" active " target="">
+                <svg class="icon icon-sidebar-products">
+                  <use xlink:href="/img/app-icons.svg#icon-sidebar-products"></use>
+                </svg>
+              </a>
+              <ul class="sub-menu ">
+                <li>
+                  <a href="https://app.oberlo.com/explore" target="" class="">Search Products
+                  </a>
+                </li>
+                <li>
+                  <a href="https://app.oberlo.com/suppliers" target="" class="">Oberlo Supply
+                  </a>
+                </li>
+                <li>
+                  <a href="https://app.oberlo.com/import" target="" class=" active ">
+                  Import List
+                  <span class="badge badge-primary">3
+                  </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://app.oberlo.com/products" target="" class="">
+                  My Products
+                  <span class="badge badge-success">32
+                  </span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li v-pre>
+              <a href="https://app.oberlo.com/orders" class="" target="">
+                <svg class="icon icon-sidebar-file">
+                  <use xlink:href="/img/app-icons.svg#icon-sidebar-file"></use>
+                </svg>
+                <span class="dot-badge dot-badge-success"></span>
+              </a>
+              <ul class="sub-menu ">
+                <li>
+                  <a href="https://app.oberlo.com/orders" target="" class="">Orders<span class="badge badge-success">1</span></a>
+                </li>
+                <li>
+                  <a href="https://app.oberlo.com/orders/manage" target="" class="">Fulfillment Monitoring</a>
+                </li>
+              </ul>
+            </li>
+            <li v-pre>
+              <a href="https://app.oberlo.com/notifications" class="" target="">
+                <svg class="icon icon-sidebar-bell">
+                  <use xlink:href="/img/app-icons.svg#icon-sidebar-bell"></use>
+                </svg>
+                <span class="dot-badge dot-badge-danger"></span>
+              </a>
+              <ul class="sub-menu ">
+                <li>
+                  <a href="https://app.oberlo.com/notifications" target="" class="">
+                  Notifications
+                  <span class="badge badge-danger">1
+                  </span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <nav class="nav-sidebar bottom">
+          <ul class="nav-sidebar-menu">
+            <li v-pre>
+              <a href="#" class="" target="">
+                <svg class="icon icon-sidebar-support">
+                  <use xlink:href="/img/app-icons.svg#icon-sidebar-support"></use>
+                </svg>
+              </a>
+              <div class="sub-menu sub-menu-big" id="support-video">
+                <ul class="sub-menu-inner ">
+                  <li>
+                    <a href="http://help.oberlo.com/welcome-to-oberlo/how-dropshipping-with-oberlo-works" target="_blank" class="">Get Started
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://ask.oberlo.com" target="_blank" class="">Community
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://help.oberlo.com" target="_blank" class="">Help Center
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://blog.oberlo.com" target="_blank" class="">Oberlo Blog
+                    </a>
+                  </li>
+                  <li>
+                    <a href="javascript:Intercom(&quot;show&quot;)" target="" class="">Contact Support
+                    </a>
+                  </li>
+                </ul>
+                <div class="sub-menu-content">
+                  <div class="relative">
+                    <span class="wistia_embed wistia_async_4q6wkuju6x popover=true popoverAnimateThumbnail=true" style="display:inline-block;height:113px;width:200px"></span>
+                    <div class="position-loader-center js-loader-wrapper">
+                      <div class="align-center">
+                        <div class="oberlo-loader"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="grey-color strong small float-left">How to customize products</span>
+                  <span class="grey-color strong float-right small">1:17</span>
+                </div>
+                <div class="sub-menu-content last">
+                  <span class="grey-color strong small">Frequently Asked Questions</span>
+                  <div class="margin-small-top">
+                    <ul>
+                      <li>
+                        <svg class="icon icon-arrow-right">
+                          <use xlink:href="/img/app-icons.svg#icon-arrow-right"></use>
+                        </svg>
+                        <a href="http://help.oberlo.com/products/ways-to-import-products/how-to-import-products" target="_blank">How do I import products?
+                        </a>
+                      </li>
+                      <li>
+                        <svg class="icon icon-arrow-right">
+                          <use xlink:href="/img/app-icons.svg#icon-arrow-right"></use>
+                        </svg>
+                        <a href="http://help.oberlo.com/products/customizing-products/how-to-customize-products" target="_blank">Can I customize or change products?
+                        </a>
+                      </li>
+                      <li>
+                        <svg class="icon icon-arrow-right">
+                          <use xlink:href="/img/app-icons.svg#icon-arrow-right"></use>
+                        </svg>
+                        <a href="http://help.oberlo.com/products/customizing-products/how-to-split-product-variants-into-separate-products" target="_blank">How can I split product variants into separate products?
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <a href="http://help.oberlo.com" class="small" target="_blank">Open Help Center</a>
+                </div>
+              </div>
+            </li>
+            <li v-pre>
+              <a href="https://storename.myshopify.com/admin" class="" target="_blank">
+                <svg class="icon icon-sidebar-store">
+                  <use xlink:href="/img/app-icons.svg#icon-sidebar-store"></use>
+                </svg>
+              </a>
+              <ul class="sub-menu ">
+                <li>
+                  <a href="https://storename.myshopify.com/admin" target="_blank" class="">storename.com
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li v-pre>
+              <a href="https://app.oberlo.com/settings/shops" class="" target="">
+                <svg class="icon icon-sidebar-settings">
+                  <use xlink:href="/img/app-icons.svg#icon-sidebar-settings"></use>
+                </svg>
+              </a>
+            </li>
+            <li v-pre>
+              <a href="https://app.oberlo.com/settings/account/profile" class="" target="">
+                <div class="user-initials user-initials-color-0">SZ</div>
+              </a>
+              <ul class="sub-menu  profile-image-li ">
+                <li>
+                  <a href="https://app.oberlo.com/settings/account/profile" target="" class="">Profile
+                  </a>
+                </li>
+                <li>
+                  <a href="https://app.oberlo.com/settings/subscription" target="" class="">Manage Subscription
+                  </a>
+                </li>
+                <li>
+                  <a href="https://app.oberlo.com/logout" target="" class="">Logout
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="container main-content">
+        <div class="row space-small-top orderChromeNotifyHolder" style="display:none;">
+          <div class="col-md-12">
+            <div class="panel small-padding">
+              <div class="panel-body">
+                <div class="container-flex flex-between">
+                  <div class="container-flex">
+                    <img class="display-block margin-right" width="16" src="https://cdn.oberlo.com/img/logo_chrome.png" alt="chrome extension">
+                    <span class="display-block">
+                    <strong>Save time adding and ordering products by using the Oberlo Chrome Extension!</strong>
+                    </span>
+                  </div>
+                  <div class="container-flex">
+                    <a class="btn btn-primary btn-sm chrome-install mr10" target="_blank" href="https://chrome.google.com/webstore/detail/hmanipjnbjnhoicdnooapcnfonebefel">Get Chrome Extension</a>
+                    <a href="http://help.oberlo.com/welcome-to-oberlo/how-to-use-the-oberlo-chrome-extension" class="btn btn-default btn-sm" target="_blank">How does it work?</a>
+                    <a href="#" class="btn-dissmis small ml10" onclick="removeChromeNotify(); return false;">
+                      <svg class="icon-small-cross">
+                        <use xlink:href="/img/app-icons.svg#icon-small-cross"></use>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <%= yield %>
+      </div>
+    </div>
+    <div class="container main-content space-top">
+      
+    </div>
   </body>
 </html>

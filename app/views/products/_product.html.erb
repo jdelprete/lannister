@@ -1,13 +1,13 @@
-<div class="row space-top">
+<div class="row space-top product">
   <div class="col-md-12">
     <div class="tabs">
       <div class="row">
         <div class="col-lg-8 col-sm-7">
           <ul class="nav-tabs">
             <li class="darker-background"><span class="for-checkbox"><input type="checkbox"></span></li>
-            <li class="active"><a href="#">Product</a></li>
-            <li class=""><a href="#">Variants <span class="badge badge-tab margin-small-left variants-count">3</span></a></li>
-            <li class=""><a href="#">Images</a></li>
+            <li class="active"><a href="javascript:;" class="product-tab" data-tab-body-class="product-tab">Product</a></li>
+            <li><a href="javascript:;" class="product-tab" data-tab-body-class="variants-tab">Variants <span class="badge badge-tab margin-small-left variants-count"><%= product.product_variants.size %></span></a></li>
+            <li class=""><a href="javascript:;" class="product-tab" data-tab-body-class="images-tab">Images <span class="badge badge-tab margin-small-left variants-count"><%= product.images.size %></span></a></li>
           </ul>
         </div>
         <div class="col-lg-4 col-sm-5 align-right" style="margin-top: 15px;">
@@ -18,9 +18,9 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
                   <ul>
-                    <li><a href="#">Select Product to Override</a></li>
-                    <li><a href="#">Split Product</a></li>
-                    <li><a href="#">Remove Product</a></li>
+                    <li><a href="javascript:;">Select Product to Override</a></li>
+                    <li><a href="javascript:;">Split Product</a></li>
+                    <li><a href="javascript:;">Remove Product</a></li>
                   </ul>
                 </div>
               </div>
@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="tabs-body always-display">
+      <div class="tabs-body always-display product-tab">
         <div>
           <div class="space-bottom" style="display: none;">
             <div class="panel small-padding danger-panel">
@@ -80,13 +80,13 @@
           </div>
           <div class="row">
             <div class="col-md-3 col-xs-4">
-              <div class="product-img"><img src="https://img.oberlo.com/?url=https://ae01.alicdn.com/kf/HTB1Pvv2RFXXXXczXpXXq6xXFXXXd/1pc-Wall-Hanging-Mandala-Blanket-7-Chakra-Tapestry-Rainbow-Stripes-Tapestry-Travel-Summer-Beach-Towel-Yoga.jpg" alt="1pc Wall Hanging Mandala Blanket 7 Chakra Tapestry Rainbow Stripes Tapestry Travel Summer Beach Towel Yoga Mat Bikini Cover Up" class="responsive-img border-img">
+              <div class="product-img"><img src="<%= product.primary_image.url %>" alt="<%= product.name %>" class="responsive-img border-img">
               </div>
             </div>
             <div class="col-md-9 col-xs-8">
               <div class="container-flex">
                 <div class="mr10 no-shrink ali-supplier"></div>
-                <h3><a href="#" target="_blank" class="blue-color"><%= product.name %></a> <span class="red-color"></span></h3>
+                <h3><a href="javascript:;" target="_blank" class="blue-color"><%= product.name %></a> <span class="red-color"></span></h3>
               </div>
               <div class="row space-small-top space-bottom">
                 <div class="col-md-12 input-block">
@@ -103,12 +103,11 @@
                         </li>
                       </ul>
                     </div>
-                    <!---->
                   </div>
                   <div class="col-md-6 input-block js-choosen-parent">
                     <label>Type:</label>
                     <div class="chosen-container chosen-container-single" style="width: 100%;">
-                      <!----><a class="chosen-single chosen-default"><span>Choose Type</span> <div><b></b></div></a>
+                      <a class="chosen-single chosen-default"><span>Choose Type</span> <div><b></b></div></a>
                     </div>
                     <select data-placeholder="Choose Type" class="form-control unvisible">
                       <option value=""></option>
@@ -130,7 +129,12 @@
             </div>
           </div>
         </div>
+
       </div>
+      
+      <%= render partial: "product_variants/product_variants", object: product.product_variants %>
+
+      <%= render partial: "images/images", object: product.images %>
     </div>
   </div>
 </div>

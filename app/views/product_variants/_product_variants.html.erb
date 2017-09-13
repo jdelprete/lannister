@@ -1,0 +1,23 @@
+<div class="tabs-body variants-tab">
+  <div style="height: 550px; overflow: auto;">
+    <table class="variants-table old-style">
+      <thead>
+        <tr>
+          <th colspan="2" class="nowrap">
+            <input type="checkbox"> Use all
+          </th>
+
+          <% product_variants.first.variant_options.sort_by { |o| o.category }.each do |option| %>
+            <th><%= option.category %></th>
+          <% end %>
+
+          <th>Cost</th>
+          <th>Inventory</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render product_variants %>
+      </tbody>
+    </table>
+  </div>
+</div>
