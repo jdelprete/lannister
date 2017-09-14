@@ -23,7 +23,7 @@ class Product < ApplicationRecord
     gallery_imgs = browser.execute_script('return window.runParams.imageBigViewURL')
     browser.quit
 
-    product.name = product_page.at_css('.product-name').text
+    product.title = product_page.at_css('.product-name').text
 
     product_desc = product_page.css('.product-property-list li').reduce('') do |desc, li|
       key = li.at_css('.propery-title').text
