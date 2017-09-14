@@ -6,9 +6,9 @@
     <img src="<%= product_variant.image.url %>" class="border-img" style="max-width: 100px; max-height: 100px; margin: 5px;">
   </td>
 
-  <% product_variant.variant_options.sort_by { |o| o.category }.each do |option| %>
+  <% product_variant.sorted_variant_options.each do |option| %>
     <td>
-      <input type="text" class="form-control" value="<%= option.title %>">
+      <%= option.title %>
     </td>
   <% end %>
 

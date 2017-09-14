@@ -94,4 +94,8 @@ class Product < ApplicationRecord
       end
     end
   end
+
+  def sorted_variant_option_categories
+    self.variant_options.select('distinct on (category) category').map { |o| o.category }.sort
+  end
 end

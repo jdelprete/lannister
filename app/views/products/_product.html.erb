@@ -5,9 +5,9 @@
         <div class="col-lg-8 col-sm-7">
           <ul class="nav-tabs">
             <li class="darker-background"><span class="for-checkbox"><input type="checkbox"></span></li>
-            <li class="active"><a href="javascript:;" class="product-tab" data-tab-body-class="product-tab">Product</a></li>
-            <li><a href="javascript:;" class="product-tab" data-tab-body-class="variants-tab">Variants <span class="badge badge-tab margin-small-left variants-count"><%= product.product_variants.size %></span></a></li>
-            <li class=""><a href="javascript:;" class="product-tab" data-tab-body-class="images-tab">Images <span class="badge badge-tab margin-small-left variants-count"><%= product.images.size %></span></a></li>
+            <li class="active"><a href="javascript:;" class="product-tab" data-tab-body-class="product-tab-body">Product</a></li>
+            <li><a href="javascript:;" class="product-tab" data-tab-body-class="variants-tab-body">Variants <span class="badge badge-tab margin-small-left variants-count"><%= product.product_variants.size %></span></a></li>
+            <li class=""><a href="javascript:;" class="product-tab" data-tab-body-class="images-tab-body">Images <span class="badge badge-tab margin-small-left variants-count"><%= product.images.size %></span></a></li>
           </ul>
         </div>
         <div class="col-lg-4 col-sm-5 align-right" style="margin-top: 15px;">
@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="tabs-body always-display product-tab">
+      <div class="tabs-body always-display product-tab-body">
         <div>
           <div class="space-bottom" style="display: none;">
             <div class="panel small-padding danger-panel">
@@ -86,13 +86,9 @@
             <div class="col-md-9 col-xs-8">
               <div class="container-flex">
                 <div class="mr10 no-shrink ali-supplier"></div>
-                <h3><a href="javascript:;" target="_blank" class="blue-color"><%= product.name %></a> <span class="red-color"></span></h3>
+                <h3><a href="<%= product.url %>" target="_blank" class="blue-color"><%= product.name %></a> <span class="red-color"></span></h3>
               </div>
               <div class="row space-small-top space-bottom">
-                <div class="col-md-12 input-block">
-                  <label>Change name:</label>
-                  <input type="text" maxlength="255" class="form-control" value="<%= product.name %>">
-                </div>
                 <div>
                   <div class="col-md-12 input-block js-build-wrapper">
                     <label>Collections:</label>

@@ -1,4 +1,4 @@
-<div class="tabs-body variants-tab">
+<div class="tabs-body variants-tab-body">
   <div style="max-height: 550px; overflow: auto;">
     <table class="variants-table old-style">
       <thead>
@@ -7,7 +7,7 @@
             <input type="checkbox"> Use all
           </th>
 
-          <% product_variants.first.variant_options.sort_by { |o| o.category }.each do |option| %>
+          <% product_variants.first.sorted_variant_options.each do |option| %>
             <th><%= option.category %></th>
           <% end %>
 

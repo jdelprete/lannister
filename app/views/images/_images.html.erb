@@ -1,4 +1,4 @@
-<div class="tabs-body images-tab">
+<div class="tabs-body images-tab-body">
   <div style="height: 550px; overflow: auto;">
     <div class="panel small-padding margin-small-top margin-bottom attention-panel">
       <div class="panel-body">
@@ -20,7 +20,7 @@
       <% images.each_with_index do |img, i| %>
         <% if i % 4 == 0 %><div class="row space-bottom"><% end %>
           <div class="col-xs-3">
-            <div class="image-select <% if i == 0 %>selected<% end %>">
+            <div class="image-select selected">
               <div class="product-img">
                 <div class="product-img-action"><img src="<%= img.url %>" class="border-img">
                   <div class="icon-selected-box align-center">
