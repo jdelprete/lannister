@@ -29,12 +29,12 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'httparty', '~> 0.15.6'
-
 gem 'nokogiri', '~> 1.8'
-
 gem 'watir', '~> 6.8', '>= 6.8.4'
-
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
+gem 'config', '~> 1.4.0'
+gem 'shopify_api', '~> 4.9.0'
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
