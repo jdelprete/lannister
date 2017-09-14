@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170914210100) do
+ActiveRecord::Schema.define(version: 20170914225335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,9 +19,8 @@ ActiveRecord::Schema.define(version: 20170914210100) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "imageable_type"
-    t.bigint "imageable_id"
-    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id"
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_images_on_product_id"
   end
 
   create_table "product_variants", force: :cascade do |t|
@@ -31,6 +30,8 @@ ActiveRecord::Schema.define(version: 20170914210100) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "inventory"
+    t.bigint "image_id"
+    t.index ["image_id"], name: "index_product_variants_on_image_id"
     t.index ["product_id"], name: "index_product_variants_on_product_id"
   end
 
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(version: 20170914210100) do
     t.index ["product_id"], name: "index_variant_options_on_product_id"
   end
 
+  add_foreign_key "images", "products"
   add_foreign_key "products", "images", column: "primary_image_id"
   add_foreign_key "variant_options", "products"
 end

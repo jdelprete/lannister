@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  has_many :images, as: :imageable
+  has_many :images
   belongs_to :primary_image, class_name: 'Image', optional: true
   has_many :product_variants
   has_many :variant_options
@@ -49,6 +49,11 @@ class Product < ApplicationRecord
       product.images.create(url: img['src'])
     end
 
+    # get images from variants
+    product_page.css('.sku-attr-list img').each do |img|
+      product.images.create(url: img['bigpic'])
+    end
+
     # get variants
     variants = product.get_variants(product_page, variant_objs)
 
@@ -90,7 +95,10 @@ class Product < ApplicationRecord
 
         variant.variant_options << VariantOption.find_or_create_by(title: title, category: category, sku_prop: prop_id, sku: sku, product: self)
 
-        variant.create_image(url: options[prop_id][:images][sku]) if options[prop_id][:images]
+        variant.image = self.images.find_by_url(options[prop_id][:images][sku]) if options[prop_id][:images]
+        
+        variant.save
+      end
       end
     end
   end
