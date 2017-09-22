@@ -17,12 +17,12 @@
       </div>
     </div>
     <div>
-      <% images.each_with_index do |img, i| %>
+      <% images.each_with_index do |image, i| %>
         <% if i % 4 == 0 %><div class="row space-bottom"><% end %>
           <div class="col-xs-3">
-            <div class="image-select selected">
+            <div class="image-select selected" data-image-id="<%= image.id %>">
               <div class="product-img">
-                <div class="product-img-action"><img src="<%= img.url %>" class="border-img">
+                <div class="product-img-action"><img src="<%= image.url %>" class="border-img">
                   <div class="icon-selected-box align-center">
                     <svg class="icon-selected">
                       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/app-icons.svg#icon-selected"></use>

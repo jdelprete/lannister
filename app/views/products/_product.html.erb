@@ -1,5 +1,16 @@
 <div class="row space-top product">
   <div class="col-md-12">
+    <div class="panel small-padding margin-bottom danger-panel import-error">
+      <div class="panel-body">
+        <div class="container-flex" style="min-height: 24px;">
+          <svg class="icon-danger-circle margin-small-right">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/app-icons.svg#icon-danger-circle"></use>
+          </svg>
+          <div>Could not import product</div>
+        </div>
+      </div>
+    </div>
+
     <div class="tabs">
       <div class="row">
         <div class="col-lg-8 col-sm-7">
@@ -25,7 +36,7 @@
                 </div>
               </div>
 
-              <button type="button" class="btn btn-success btn-icon-left margin-right"><span class="btn-icon-wrap"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/icons.svg#icon-add"></use></svg></span> Push to Shop</button>
+              <button type="button" class="btn btn-success btn-icon-left margin-right push-btn" data-product-id="<%= product.id %>"><span class="btn-icon-wrap"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/icons.svg#icon-add"></use></svg></span> Push to Shop</button>
             </div>
           </div>
         </div>
