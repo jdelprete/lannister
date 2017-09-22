@@ -1,0 +1,19 @@
+<tr class="">
+  <td class="image" style="width: 40px;"><img alt="<%= line_item.product.title %>" class="order-thumbnail" src="<%= line_item.product_variant.image.url %>"></td>
+  <td class="text nowrap" style="width: 35%;">
+    <a href="#" target="_blank"><%= line_item.product.title.truncate(48) %></a>
+    <br>
+    <span class="grey-color"><%= line_item.product_variant.shopify_sku %></span>
+  </td>
+  <td class="width20 text"><% if line_item.product.has_many_variants? %><%= line_item.variant_title %><% end %></td>
+  <td class="width20 text"><span class="grey-color"><%= line_item.tracking_code || 'No Tracking Number' %></span></td>
+  <td style="width: 20px;"><%= line_item.quantity %></td>
+  <td class="align-center" style="width: 20px;">
+    <div class="rotate45">
+      <svg class="icon-plus">
+      <use xlink:href="/img/app-icons.svg#icon-plus" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg>
+    </div>
+  </td>
+  <td><%= line_item.price %></td>
+  <td class="align-right"></td>
+</tr>

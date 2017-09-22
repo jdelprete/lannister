@@ -14,3 +14,11 @@
  *= require_self
  *= require flag-icon
  */
+
+.hide {
+  display: none;
+}
+
+.v-align-middle {
+  vertical-align: middle;
+}

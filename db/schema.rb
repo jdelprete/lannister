@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170914225335) do
+ActiveRecord::Schema.define(version: 20170921211105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,28 @@ ActiveRecord::Schema.define(version: 20170914225335) do
     t.index ["product_id"], name: "index_images_on_product_id"
   end
 
+  create_table "line_items", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "product_variant_id"
+    t.integer "quantity"
+    t.float "price"
+    t.string "variant_title"
+    t.boolean "has_shipped", default: false
+    t.string "tracking_code"
+    t.index ["order_id"], name: "index_line_items_on_order_id"
+    t.index ["product_variant_id"], name: "index_line_items_on_product_variant_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "shopify_id"
+    t.integer "shopify_order_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "ali_order_number"
+    t.datetime "ordered_at"
+    t.text "shipping_address"
+  end
+
   create_table "product_variants", force: :cascade do |t|
     t.float "cost"
     t.bigint "product_id"
@@ -31,6 +53,7 @@ ActiveRecord::Schema.define(version: 20170914225335) do
     t.datetime "updated_at", null: false
     t.integer "inventory"
     t.bigint "image_id"
+    t.bigint "shopify_id"
     t.index ["image_id"], name: "index_product_variants_on_image_id"
     t.index ["product_id"], name: "index_product_variants_on_product_id"
   end
@@ -49,6 +72,7 @@ ActiveRecord::Schema.define(version: 20170914225335) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "primary_image_id"
+    t.bigint "shopify_id"
   end
 
   create_table "variant_options", force: :cascade do |t|
@@ -57,8 +81,8 @@ ActiveRecord::Schema.define(version: 20170914225335) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_id"
-    t.integer "sku_prop"
-    t.integer "sku"
+    t.integer "ali_sku_prop"
+    t.integer "ali_sku"
     t.index ["product_id"], name: "index_variant_options_on_product_id"
   end
 
