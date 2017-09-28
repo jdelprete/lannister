@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   put '/products/:id/import', to: 'products#import', as: 'product_import'
 
   resources :orders
+  resources :aliexpress_orders
 end

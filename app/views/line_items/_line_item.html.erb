@@ -6,7 +6,7 @@
     <span class="grey-color"><%= line_item.product_variant.shopify_sku %></span>
   </td>
   <td class="width20 text"><% if line_item.product.has_many_variants? %><%= line_item.variant_title %><% end %></td>
-  <td class="width20 text"><span class="grey-color"><%= line_item.tracking_code || 'No Tracking Number' %></span></td>
+  <td class="width20 text"><span class="grey-color"><%= line_item.aliexpress_order.tracking_code || 'No Tracking Number' %></span></td>
   <td style="width: 20px;"><%= line_item.quantity %></td>
   <td class="align-center" style="width: 20px;">
     <div class="rotate45">

@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  has_many :line_items, dependent: :destroy
+  has_many :aliexpress_orders, dependent: :destroy
   serialize :shipping_address, JSON
 
   def self.create_from_shopify_order(shopify_order)
@@ -11,31 +11,13 @@ class Order < ApplicationRecord
 
     order.save
 
-    shopify_order.line_items.each do |shopify_line_item|
-      order.line_items << LineItem.create_from_shopify_line_item(shopify_line_item)
+    line_items = shopify_order.line_items.map { |li| LineItem.create_from_shopify_line_item(li) }
+
+    line_items.group_by { |li| li.product.aliexpress_shop }.each do |aliexpress_shop, line_item_groups|
+      ali_order = order.aliexpress_orders.create(aliexpress_shop_id: aliexpress_shop.id)
+      ali_order.line_items << line_item_groups
     end
 
     order
-  end
-
-  def fulfillment_info
-    # returns all the information necessary to place the order on aliexpress
-    fulfillment_info = {
-      order_id: self.id,
-      shipping_address: shipping_address
-    }
-
-    fulfillment_info[:line_items] = line_items.reduce([]) do |line_item_arr, line_item|
-      variant = line_item.product_variant
-      product = variant.product
-
-      variant_options = variant.variant_options.reduce([]) do |opt_arr, opt|
-        opt_arr << { ali_sku_prop: opt.ali_sku_prop, ali_sku: opt.ali_sku }
-      end
-
-      line_item_arr << { product_url: product.url, quantity: line_item.quantity, variant_options: variant_options }
-    end
-
-    fulfillment_info
   end
 end

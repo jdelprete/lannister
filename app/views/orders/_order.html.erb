@@ -40,17 +40,13 @@
             <use xlink:href="/img/app-icons.svg#icon-financial" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg>
           </div>
           <div class="margin-left">
-            <span class="grey-color">Customer:</span> <a href="#"><%= order.shipping_address['name'] %></a>
+            <span class="grey-color">Customer:</span> <a href="javascript:;" class="toggle-address-info"><%= order.shipping_address['name'] %></a>
           </div>
           <div class="margin-small-left flag-icon flag-size flag-icon-<%= order.shipping_address['country_code'].downcase %>"></div>
         </div>
-        <div class="container-flex align-right">
-          <!---->
-           <button class="btn btn-default margin-left" type="button">Mark as Shipped</button>
-        </div>
       </div>
     </div>
-    <div class="panel-header container-flex flex-top" style="display: none;">
+    <div class="panel-header container-flex flex-top address-info hide">
       <button class="close btn-sm btn-icon-only btn-transparent"><span class="btn-icon-wrap"><svg>
       <use xlink:href="/images/icons.svg#icon-close" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></span></button>
       <div class="margin-right flex-item-grid mb10">
@@ -87,7 +83,7 @@
             </div>
           </div>
         </div>
-        <div class="border-bottom" style="display: none;">
+        <div class="border-bottom <% unless order.shipping_address['address2'] %>hide<% end %>">
           <label><strong class="grey-color">Address 2:</strong></label>
           <div class="mb10 clearfix">
             <div class="float-left">
@@ -149,7 +145,7 @@
           <div class="mb10 clearfix">
             <div class="float-left"></div>
             <div class="float-right">
-              <a class="copy-button" href="#" onclick="return false;">Copy</a>
+              <a class="copy-button hide" href="#" onclick="return false;">Copy</a>
             </div>
           </div>
         </div>
@@ -180,108 +176,7 @@
         </div>
       </div>
     </div>
-    <div class="panel-row overflow">
-      <div class="">
-        <div>
-          <div class="container-flex flex-between">
-            <div class="container-flex">
-              <div class="container-flex">
-                <span class="label label-warning to-order-status <% if order.ali_order_number %>hide<% end %>">To Order</span> <!---->
-                <span class="label label-primary processing-status <% unless order.ali_order_number %>hide<% end %>">Processing</span> <!---->
-                 <!---->
-                 <!---->
-                 <!---->
-                 <!---->
-              </div>
-              <div class="svg-container ml5" style="display: none;">
-                <div>
-                  <a class="svg-container" href="#"><svg class="icon-envelope">
-                  <use xlink:href="/img/app-icons.svg#icon-envelope" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></a>
-                </div>
-              </div>
-              <div class="container-flex">
-                <span class="elephant-color ml30">Ali Order No:</span>
-                <div class="container-flex margin-small-left">
-                  <span style="display: none;" class="ali-order-form">
-                    <input class="form-control input-sm ali-order-input" style="width: 150px;" type="text"> 
-                    <a href="#" class="btn btn-default margin-small-left btn-sm ali-order-save">Save</a>
-                  </span>
 
-                  <% if order.ali_order_number.present? %>
-                    <a class="blue-color ali-order-link" href="http://trade.aliexpress.com/order_detail.htm?orderId=<%= order.ali_order_number %>" target="_blank"><%= order.ali_order_number %></a>
-                    <a class="btn btn-default btn-sm ali-order-add hide" href="#">Add</a>
-                    <svg class="icon-info ml10 link-cursor ali-order-edit"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/app-icons.svg#icon-info"></use></svg>
-                  <% else %>
-                    <a class="blue-color ali-order-link" href="javascript:;" target="_blank"></a>
-                    <a class="btn btn-default btn-sm ali-order-add" href="#">Add</a>
-                    <svg class="icon-info ml10 link-cursor ali-order-edit hide"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/app-icons.svg#icon-info"></use></svg>
-                  <% end %>
-
-
-                </div>
-              </div>
-              <div class="margin-left" style="display: none;">
-                <span class="elephant-color">Order No:</span> <span class="blue-color"></span>
-              </div><!---->
-              <div class="container-flex" style="display: none;">
-                <svg class="icon-exclamation-circle ml10" data-original-title="" title="">
-                <use xlink:href="/img/app-icons.svg#icon-exclamation-circle" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg> <span class="color-danger pl5">No Order Number</span> <a class="pl5" href="http://help.oberlo.com/orders/missing-orders/how-to-cancel-the-order-fulfillment-in-shopify" target="_blank">(What should I do?)</a>
-              </div><svg class="icon-exclamation-circle ml10" data-original-title="" style="display: none;" title="">
-              <use xlink:href="/img/app-icons.svg#icon-exclamation-circle" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg> <span class="elephant-color ml30">Shipped:&nbsp;</span> <strong><%= order.line_items.where(has_shipped: true).size %> / <%= order.line_items.size %></strong> <button class="btn-sm btn margin-small-left btn-default" type="button">Mark as Shipped</button> <!---->
-            </div>
-            <div class="container-flex align-right">
-              <!---->
-              <div class="align-right" style="">
-                <script type="application/json" class="fulfillment-info-json">
-                  <%= raw json_escape(order.fulfillment_info.to_json) %>
-                </script>
-
-                <span class="oberlo-loader dark v-align-middle loader-sm hide"></span>
-                <button class="btn btn-warning btn-icon-left order-product <% if order.ali_order_number %>hide<% end %>">
-                  <span class="btn-icon-wrap">
-                    <svg class="icon-order"><use xlink:href="/img/app-icons.svg#icon-order" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg>
-                  </span> Order Product
-                </button>
-                <button class="btn btn-primary get-tracking-code <% unless order.ali_order_number %>hide<% end %>">Get Tracking Code</button>
-              </div>
-              <div class="align-right" style="display: none;">
-                <button class="btn btn-sm btn-default" type="button">Order Product</button>
-              </div><button class="btn btn-primary align-center" style="display: none;"><span class="oberlo-loader absolute-center loader-sm" style="display: none;"></span> <span class="">Get Tracking Code</span></button> <button class="btn btn-default btn-sm" style="display: none;"><span class="oberlo-loader absolute-center loader-sm" style="display: none;"></span> <span class="">Get Tracking Code</span></button>
-              <div style="display: none;">
-                <div class="dropdown margin-left display-inline margin-right">
-                  <a class="btn btn-default btn-sm btn-dropdown dropdown-toggle" data-toggle="dropdown" href="#"><span class="btn-icon-text">Action</span> <span class="btn-icon-wrap"><svg class="icon-open">
-                  <use xlink:href="/img/app-icons.svg#icon-open" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></span></a>
-                  <div class="dropdown-menu dropdown-menu-right dropdown-sm">
-                    <ul>
-                      <!---->
-                      <li>
-                        <a href="#">Order Product</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div style="display: none;">
-                <a class="btn-link btn btn-icon btn-icon-right relative" href="#"><span class="btn-icon-text" style="display: none;">Show Products</span> <span class="btn-icon-text">Hide Products</span> <span class="btn-icon-wrap rotate180btn"><svg class="icon icon-arrow-more">
-                <use xlink:href="./images/icons.svg#icon-small-arrow-down" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></span></a>
-              </div><!---->
-              <!---->
-            </div>
-          </div>
-        </div>
-        <div>
-          <!---->
-          <div class="single-supplier-row margin-small-top">
-            <table class="old-style">
-              <!---->
-              <tbody>
-                <%= render order.line_items %>
-              </tbody><!---->
-              <!---->
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render order.aliexpress_orders.order(id: :DESC) %>
   </div>
 </div>

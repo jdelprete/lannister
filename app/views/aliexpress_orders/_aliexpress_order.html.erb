@@ -1,0 +1,101 @@
+<div class="panel-row overflow">
+  <div class="aliexpress-order" data-aliexpress-order-id="<%= aliexpress_order.id %>">
+    <div>
+      <div class="container-flex flex-between">
+        <div class="container-flex">
+          <div class="container-flex">
+            <span class="label label-warning order-status to-order-status <% if aliexpress_order.ali_order_number %>hide<% end %>">To Order</span> <!---->
+            <span class="label label-primary order-status processing-status <% unless aliexpress_order.ali_order_number && !aliexpress_order.has_shipped? %>hide<% end %>">Processing</span>
+            <span class="label label-success order-status shipped-status <% unless aliexpress_order.has_shipped? %>hide<% end %>">Shipped</span> <!---->
+          </div>
+          <div class="svg-container ml5" style="display: none;">
+            <div>
+              <a class="svg-container" href="#"><svg class="icon-envelope">
+              <use xlink:href="/img/app-icons.svg#icon-envelope" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></a>
+            </div>
+          </div>
+          <div class="container-flex">
+            <span class="elephant-color ml30">Ali Order No:</span>
+            <div class="container-flex margin-small-left">
+              <span style="display: none;" class="ali-order-form">
+                <input class="form-control input-sm ali-order-input" style="width: 150px;" type="text"> 
+                <a href="#" class="btn btn-default margin-small-left btn-sm ali-order-save">Save</a>
+              </span>
+
+              <% if aliexpress_order.ali_order_number.present? %>
+                <a class="blue-color ali-order-link" href="http://trade.aliexpress.com/order_detail.htm?orderId=<%= aliexpress_order.ali_order_number %>" target="_blank"><%= aliexpress_order.ali_order_number %></a>
+                <a class="btn btn-default btn-sm ali-order-add hide" href="javascript:;">Add</a>
+                <svg class="icon-info ml10 link-cursor ali-order-edit"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/app-icons.svg#icon-info"></use></svg>
+              <% else %>
+                <a class="blue-color ali-order-link" href="javascript:;" target="_blank"></a>
+                <a class="btn btn-default btn-sm ali-order-add" href="javascript:;">Add</a>
+                <svg class="icon-info ml10 link-cursor ali-order-edit hide"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/app-icons.svg#icon-info"></use></svg>
+              <% end %>
+
+            </div>
+          </div>
+          
+          <div class="container-flex" style="display: none;">
+            <svg class="icon-exclamation-circle ml10" data-original-title="" title="">
+            <use xlink:href="/img/app-icons.svg#icon-exclamation-circle" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg> <span class="color-danger pl5">No Order Number</span> <a class="pl5" href="http://help.oberlo.com/orders/missing-orders/how-to-cancel-the-order-fulfillment-in-shopify" target="_blank">(What should I do?)</a>
+          </div><svg class="icon-exclamation-circle ml10" data-original-title="" style="display: none;" title="">
+          <use xlink:href="/img/app-icons.svg#icon-exclamation-circle" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg> 
+          <!-- <span class="elephant-color ml30">Shipped:&nbsp;</span> <strong><%= aliexpress_order.line_items.select(&:has_shipped).size %> / <%= aliexpress_order.line_items.size %></strong>  -->
+          <span class="elephant-color ml30">Tracking code:&nbsp;</span>
+
+          <div class="container-flex margin-small-left">
+            <span style="display: none;" class="tracking-form">
+              <input class="form-control input-sm tracking-input" style="width: 150px;" type="text"> 
+              <a href="#" class="btn btn-default margin-small-left btn-sm tracking-save">Save</a>
+            </span>
+
+            <% if aliexpress_order.tracking_code.present? %>
+              <a class="blue-color tracking-link" href="http://track.aftership.com/<%= aliexpress_order.tracking_code %>" target="_blank"><%= aliexpress_order.tracking_code %></a>
+              <button class="btn-sm btn btn-default tracking-add hide" type="button">Add</button> <!---->
+              <svg class="icon-info ml10 link-cursor tracking-edit"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/app-icons.svg#icon-info"></use></svg>
+            <% else %>
+              <a class="blue-color tracking-link" href="javascript:;" target="_blank"></a>
+              <button class="btn-sm btn btn-default tracking-add" type="button">Add</button> <!---->
+              <svg class="icon-info ml10 link-cursor tracking-edit hide"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/app-icons.svg#icon-info"></use></svg>
+            <% end %>
+          </div>
+        </div>
+        <div class="container-flex align-right">
+          <!---->
+          <div class="align-right" style="">
+            <script type="application/json" class="fulfillment-info-json">
+              <%= raw json_escape(aliexpress_order.fulfillment_info.to_json) %>
+            </script>
+
+            <span class="oberlo-loader dark v-align-middle loader-sm hide"></span>
+            <button class="btn btn-warning btn-icon-left order-product order-action <% if aliexpress_order.ali_order_number %>hide<% end %>">
+              <span class="btn-icon-wrap">
+                <svg class="icon-order"><use xlink:href="/img/app-icons.svg#icon-order" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg>
+              </span> Order Product
+            </button>
+            <button class="btn btn-primary order-action get-tracking-code <% unless aliexpress_order.ali_order_number && !aliexpress_order.has_shipped? %>hide<% end %>">Get Tracking Code</button>
+
+            <div class="toggle-line-items order-action <% unless aliexpress_order.has_shipped? %>hide<% end %>">
+              <a href="#" class="btn-link btn btn-icon btn-icon-right relative">
+                <span class="btn-icon-text show-products toggle-text <% unless aliexpress_order.has_shipped? %>hide<% end %>">Show Products</span>
+                <span class="btn-icon-text hide-products toggle-text <% if aliexpress_order.has_shipped? %>hide<% end %>">Hide Products</span> 
+                <span class="btn-icon-wrap toggle-chevron <% unless aliexpress_order.has_shipped? %>rotate180btn<% end %>"><svg class="icon icon-arrow-more"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/icons.svg#icon-small-arrow-down"></use></svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="single-supplier-row margin-small-top line-items <% if aliexpress_order.has_shipped? %>hide<% end %>">
+        <table class="old-style">
+          <tbody>
+            <%= render aliexpress_order.line_items.order(id: :DESC) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

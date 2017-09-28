@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921211105) do
+ActiveRecord::Schema.define(version: 20170928021759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "aliexpress_orders", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "aliexpress_shop_id"
+    t.bigint "ali_order_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "tracking_code"
+    t.string "tracking_company"
+    t.index ["aliexpress_shop_id"], name: "index_aliexpress_orders_on_aliexpress_shop_id"
+    t.index ["order_id"], name: "index_aliexpress_orders_on_order_id"
+  end
+
+  create_table "aliexpress_shops", force: :cascade do |t|
+    t.bigint "ali_store_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "images", force: :cascade do |t|
     t.string "url"
@@ -24,14 +43,14 @@ ActiveRecord::Schema.define(version: 20170921211105) do
   end
 
   create_table "line_items", force: :cascade do |t|
-    t.bigint "order_id"
     t.bigint "product_variant_id"
     t.integer "quantity"
     t.float "price"
     t.string "variant_title"
     t.boolean "has_shipped", default: false
-    t.string "tracking_code"
-    t.index ["order_id"], name: "index_line_items_on_order_id"
+    t.bigint "aliexpress_order_id"
+    t.bigint "shopify_id"
+    t.index ["aliexpress_order_id"], name: "index_line_items_on_aliexpress_order_id"
     t.index ["product_variant_id"], name: "index_line_items_on_product_variant_id"
   end
 
@@ -40,7 +59,6 @@ ActiveRecord::Schema.define(version: 20170921211105) do
     t.integer "shopify_order_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "ali_order_number"
     t.datetime "ordered_at"
     t.text "shipping_address"
   end
@@ -73,6 +91,8 @@ ActiveRecord::Schema.define(version: 20170921211105) do
     t.datetime "updated_at", null: false
     t.bigint "primary_image_id"
     t.bigint "shopify_id"
+    t.bigint "aliexpress_shop_id"
+    t.index ["aliexpress_shop_id"], name: "index_products_on_aliexpress_shop_id"
   end
 
   create_table "variant_options", force: :cascade do |t|
@@ -87,6 +107,8 @@ ActiveRecord::Schema.define(version: 20170921211105) do
   end
 
   add_foreign_key "images", "products"
+  add_foreign_key "line_items", "aliexpress_orders"
+  add_foreign_key "products", "aliexpress_shops"
   add_foreign_key "products", "images", column: "primary_image_id"
   add_foreign_key "variant_options", "products"
 end

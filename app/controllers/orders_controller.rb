@@ -10,10 +10,4 @@ class OrdersController < ApplicationController
 
     @orders = Order.order('shopify_order_number DESC')
   end
-
-  def update
-    order = Order.find(params[:id])
-    order.ali_order_number = params[:ali_order_number] if params[:ali_order_number]
-    order.save
-  end
 end

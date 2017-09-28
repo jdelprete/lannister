@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
   has_many :images
   belongs_to :primary_image, class_name: 'Image', optional: true
+  belongs_to :aliexpress_shop
   has_many :product_variants
   has_many :variant_options
 
@@ -22,6 +23,11 @@ class Product < ApplicationRecord
     variant_objs = browser.execute_script('return skuProducts')
     gallery_imgs = browser.execute_script('return window.runParams.imageBigViewURL')
     browser.quit
+
+    store_anchor = product_page.at_css('.shop-name > a')
+    store_id = store_anchor['href'].split('/').reject(&:empty?).last
+    store_name = store_anchor.text
+    product.aliexpress_shop = AliexpressShop.create_with(name: store_name).find_or_create_by(ali_store_id: store_id)
 
     product.title = product_page.at_css('.product-name').text
 
