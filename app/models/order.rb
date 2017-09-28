@@ -3,6 +3,14 @@ class Order < ApplicationRecord
   serialize :shipping_address, JSON
 
   def self.create_from_shopify_order(shopify_order)
+    line_items = shopify_order.line_items.reduce([]) do |arr, shopify_li| 
+      li = LineItem.create_from_shopify_line_item(shopify_li)
+      arr << li if li
+      arr
+    end
+
+    return nil if line_items.empty? # there are no line items handled by lannister
+
     order = Order.new
     order.shopify_id = shopify_order.id
     order.shopify_order_number = shopify_order.number
@@ -11,14 +19,12 @@ class Order < ApplicationRecord
     order.currency = shopify_order.currency
     order.shipping_address = shopify_order.shipping_address.attributes
 
-    if order.shipping_address.country_code == 'GB'
+    if order.shipping_address['country_code'] == 'GB'
       outward = order.shipping_address.zip.match(/^([A-Z]{1,2}\d{1,2}[A-Z]?)\s*(\d[A-Z]{2})$/).captures.first
       order.shipping_address.province = UkCounties.find_by(postcode_district: outward)
     end
 
     order.save
-
-    line_items = shopify_order.line_items.map { |li| LineItem.create_from_shopify_line_item(li) }
 
     line_items.group_by { |li| li.product.aliexpress_shop }.each do |aliexpress_shop, line_item_groups|
       ali_order = order.aliexpress_orders.create(aliexpress_shop_id: aliexpress_shop.id)

@@ -13,9 +13,10 @@ class LineItem < ApplicationRecord
       shopify_id: shopify_line_item.id
     )
 
+    return nil if new_line_item.product_variant.nil?
+
     cur_product_title = new_line_item.product.title
-    new_line_item.product.title = shopify_line_item.title if cur_product_title != shopify_line_item.title
-    new_line_item.product.save
+    new_line_item.product.update(title: shopify_line_item.title) if cur_product_title != shopify_line_item.title
 
     new_line_item
   end
