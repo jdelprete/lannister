@@ -1,4 +1,6 @@
 class AliexpressOrdersController < ApplicationController
+  skip_before_action :set_layout_variables
+
   def update
     aliexpress_order = AliexpressOrder.find(params[:id])
     aliexpress_order.update(ali_order_number: params[:ali_order_number]) if params[:ali_order_number]

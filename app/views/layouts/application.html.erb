@@ -52,20 +52,12 @@
             </a>
           </div>
           <ul class="nav navbar-nav navbar-right">
-            <li class="" v-pre>
-              <a href="https://app.oberlo.com/explore">Search Products
-              </a>
-            </li>
-            <li class="" v-pre>
-              <a href="https://app.oberlo.com/suppliers">Oberlo Supply
-              </a>
-            </li>
             <li class=" active " v-pre>
-              <a href="https://app.oberlo.com/import">Import List <span class="badge badge-primary">3</span></a>
+              <a href="/import">Import List <span class="badge badge-primary">3</span></a>
             </li>
-            <li class="" v-pre>
+            <!-- <li class="" v-pre>
               <a href="https://app.oberlo.com/products">My Products <span class="badge badge-success">32</span></a>
-            </li>
+            </li> -->
           </ul>
         </div>
       </nav>
@@ -98,46 +90,31 @@
               </a>
               <ul class="sub-menu ">
                 <li>
-                  <a href="https://app.oberlo.com/explore" target="" class="">Search Products
-                  </a>
+                  <a href="/import" target="" class=" active ">Import List <span class="badge badge-primary">3</span></a>
                 </li>
-                <li>
-                  <a href="https://app.oberlo.com/suppliers" target="" class="">Oberlo Supply
-                  </a>
-                </li>
-                <li>
-                  <a href="https://app.oberlo.com/import" target="" class=" active ">
-                  Import List
-                  <span class="badge badge-primary">3
-                  </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://app.oberlo.com/products" target="" class="">
-                  My Products
-                  <span class="badge badge-success">32
-                  </span>
-                  </a>
-                </li>
+                <!-- <li>
+                  <a href="/products" target="" class="">My Products <span class="badge badge-success">32</span></a>
+                </li> -->
               </ul>
             </li>
             <li v-pre>
-              <a href="https://app.oberlo.com/orders" class="" target="">
+              <a href="/orders" class="" target="">
                 <svg class="icon icon-sidebar-file">
                   <use xlink:href="/img/app-icons.svg#icon-sidebar-file"></use>
                 </svg>
-                <span class="dot-badge dot-badge-success"></span>
+
+                <% if @num_unfulfilled_orders > 0 %><span class="dot-badge dot-badge-success"></span><% end %>
               </a>
               <ul class="sub-menu ">
                 <li>
-                  <a href="https://app.oberlo.com/orders" target="" class="">Orders<span class="badge badge-success">1</span></a>
+                  <a href="https://app.oberlo.com/orders" target="" class="">Orders<span class="badge badge-success"><%= @num_unfulfilled_orders %></span></a>
                 </li>
-                <li>
+                <!-- <li>
                   <a href="https://app.oberlo.com/orders/manage" target="" class="">Fulfillment Monitoring</a>
-                </li>
+                </li> -->
               </ul>
             </li>
-            <li v-pre>
+            <!-- <li v-pre>
               <a href="https://app.oberlo.com/notifications" class="" target="">
                 <svg class="icon icon-sidebar-bell">
                   <use xlink:href="/img/app-icons.svg#icon-sidebar-bell"></use>
@@ -153,83 +130,11 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
           </ul>
         </nav>
         <nav class="nav-sidebar bottom">
           <ul class="nav-sidebar-menu">
-            <li v-pre>
-              <a href="#" class="" target="">
-                <svg class="icon icon-sidebar-support">
-                  <use xlink:href="/img/app-icons.svg#icon-sidebar-support"></use>
-                </svg>
-              </a>
-              <div class="sub-menu sub-menu-big" id="support-video">
-                <ul class="sub-menu-inner ">
-                  <li>
-                    <a href="http://help.oberlo.com/welcome-to-oberlo/how-dropshipping-with-oberlo-works" target="_blank" class="">Get Started
-                    </a>
-                  </li>
-                  <li>
-                    <a href="http://ask.oberlo.com" target="_blank" class="">Community
-                    </a>
-                  </li>
-                  <li>
-                    <a href="http://help.oberlo.com" target="_blank" class="">Help Center
-                    </a>
-                  </li>
-                  <li>
-                    <a href="http://blog.oberlo.com" target="_blank" class="">Oberlo Blog
-                    </a>
-                  </li>
-                  <li>
-                    <a href="javascript:Intercom(&quot;show&quot;)" target="" class="">Contact Support
-                    </a>
-                  </li>
-                </ul>
-                <div class="sub-menu-content">
-                  <div class="relative">
-                    <span class="wistia_embed wistia_async_4q6wkuju6x popover=true popoverAnimateThumbnail=true" style="display:inline-block;height:113px;width:200px"></span>
-                    <div class="position-loader-center js-loader-wrapper">
-                      <div class="align-center">
-                        <div class="oberlo-loader"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <span class="grey-color strong small float-left">How to customize products</span>
-                  <span class="grey-color strong float-right small">1:17</span>
-                </div>
-                <div class="sub-menu-content last">
-                  <span class="grey-color strong small">Frequently Asked Questions</span>
-                  <div class="margin-small-top">
-                    <ul>
-                      <li>
-                        <svg class="icon icon-arrow-right">
-                          <use xlink:href="/img/app-icons.svg#icon-arrow-right"></use>
-                        </svg>
-                        <a href="http://help.oberlo.com/products/ways-to-import-products/how-to-import-products" target="_blank">How do I import products?
-                        </a>
-                      </li>
-                      <li>
-                        <svg class="icon icon-arrow-right">
-                          <use xlink:href="/img/app-icons.svg#icon-arrow-right"></use>
-                        </svg>
-                        <a href="http://help.oberlo.com/products/customizing-products/how-to-customize-products" target="_blank">Can I customize or change products?
-                        </a>
-                      </li>
-                      <li>
-                        <svg class="icon icon-arrow-right">
-                          <use xlink:href="/img/app-icons.svg#icon-arrow-right"></use>
-                        </svg>
-                        <a href="http://help.oberlo.com/products/customizing-products/how-to-split-product-variants-into-separate-products" target="_blank">How can I split product variants into separate products?
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <a href="http://help.oberlo.com" class="small" target="_blank">Open Help Center</a>
-                </div>
-              </div>
-            </li>
             <li v-pre>
               <a href="https://storename.myshopify.com/admin" class="" target="_blank">
                 <svg class="icon icon-sidebar-store">
