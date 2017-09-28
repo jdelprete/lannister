@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   belongs_to :aliexpress_shop
   has_many :product_variants
   has_many :variant_options
+  has_and_belongs_to_many :indirect_variants, class_name: 'ProductVariant'
 
   def self.create_from_url(product_url)
     product_url = product_url.split('?').first
@@ -146,5 +147,9 @@ class Product < ApplicationRecord
 
   def imported?
     self.shopify_id.present?
+  end
+
+  def all_variants
+    self.product_variants + self.indirect_variants
   end
 end
