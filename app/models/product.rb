@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  before_destroy :remove_primary_image
   has_many :images
   belongs_to :primary_image, class_name: 'Image', optional: true
   belongs_to :aliexpress_shop
@@ -9,9 +10,7 @@ class Product < ApplicationRecord
   def self.create_from_url(product_url)
     product_url = product_url.split('?').first
 
-    if Product.find_by(url: product_url)
-      return nil
-    end
+    return nil if Product.find_by(url: product_url)
 
     product = Product.new
     product.url = product_url
@@ -44,8 +43,7 @@ class Product < ApplicationRecord
     gallery_imgs.each_with_index do |img, idx|
       if idx == 0
         img = product.images.create(url: img)
-        product.primary_image = img
-        product.save
+        product.update(primary_image: img)
       else
         product.images.create(url: img)
       end
@@ -91,20 +89,22 @@ class Product < ApplicationRecord
       inventory = variant_obj['skuVal']['inventory']
       variant = ProductVariant.create(product: self, cost: cost, inventory: inventory)
 
-      variant_obj['skuAttr'].split(';').each do |skuAttr|
-        attrs = skuAttr.split(/[#:]/)
+      if variant_obj['skuAttr']
+        variant_obj['skuAttr'].split(';').each do |skuAttr|
+          attrs = skuAttr.split(/[#:]/)
 
-        ali_prop_id = attrs[0].to_i
-        ali_sku = attrs[1].to_i
-        title = attrs[2]
-        category = options[ali_prop_id][:category]
+          ali_prop_id = attrs[0].to_i
+          ali_sku = attrs[1].to_i
+          title = attrs[2]
+          category = options[ali_prop_id][:category]
 
-        variant.variant_options << VariantOption.find_or_create_by(title: title, category: category, ali_sku_prop: ali_prop_id, ali_sku: ali_sku, product: self)
+          variant.variant_options << VariantOption.find_or_create_by(title: title, category: category, ali_sku_prop: ali_prop_id, ali_sku: ali_sku, product: self)
 
-        variant.image = self.images.find_by(url: options[ali_prop_id][:images][ali_sku]) if options[ali_prop_id][:images]
-
-        variant.save
+          variant.update(image: self.images.find_by(url: options[ali_prop_id][:images][ali_sku])) if options[ali_prop_id][:images]
+        end
       end
+
+      variant.update(image: self.primary_image) unless variant.image
     end
   end
 
@@ -128,12 +128,11 @@ class Product < ApplicationRecord
     shopify_product = self.as_shopify_product
     shopify_product.save
     
-    shopify_product.images = self.images.map { |img| img.as_shopify_image(shopify_product.variants) } if has_many_variants? # images are added after save to get the variant ids
+    # images are added after save to get the variant ids
+    shopify_product.images = self.images.map { |img| img.as_shopify_image(shopify_product.variants) } if has_many_variants?
     shopify_product.save
-
     
-    self.shopify_id = shopify_product.id
-    save
+    self.update(shopify_id: shopify_product.id)
 
     shopify_product.variants.each do |shopify_variant| 
       variant = self.product_variants.find(shopify_variant.sku)
@@ -151,5 +150,11 @@ class Product < ApplicationRecord
 
   def all_variants
     self.product_variants + self.indirect_variants
+  end
+
+  private 
+
+  def remove_primary_image
+    self.update(primary_image: nil) # or else there's a foreign key constraint
   end
 end
