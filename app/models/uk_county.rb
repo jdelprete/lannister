@@ -1,0 +1,2 @@
+class UkCounty < ApplicationRecord
+end

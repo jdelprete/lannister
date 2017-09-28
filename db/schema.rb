@@ -95,6 +95,12 @@ ActiveRecord::Schema.define(version: 20170928021759) do
     t.index ["aliexpress_shop_id"], name: "index_products_on_aliexpress_shop_id"
   end
 
+  create_table "uk_counties", force: :cascade do |t|
+    t.string "postcode_district"
+    t.string "county"
+    t.index ["postcode_district"], name: "index_uk_counties_on_postcode_district"
+  end
+
   create_table "variant_options", force: :cascade do |t|
     t.string "title"
     t.string "category"
