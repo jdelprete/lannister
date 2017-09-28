@@ -2,6 +2,7 @@ class LineItem < ApplicationRecord
   belongs_to :aliexpress_order
   belongs_to :product_variant
   has_one :product, through: :product_variant
+  has_one :order, through: :aliexpress_order
 
   def self.create_from_shopify_line_item(shopify_line_item)
     new_line_item = LineItem.new(

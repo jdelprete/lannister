@@ -7,6 +7,7 @@ class Order < ApplicationRecord
     order.shopify_id = shopify_order.id
     order.shopify_order_number = shopify_order.number
     order.ordered_at = DateTime.parse(shopify_order.created_at)
+    order.currency = shopify_order.currency
     order.shipping_address = shopify_order.shipping_address.attributes
 
     if order.shipping_address.country_code == 'GB'
