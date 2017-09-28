@@ -88,8 +88,7 @@ class Product < ApplicationRecord
     variant_objs.each do |variant_obj|
       cost = variant_obj['skuVal']['actSkuCalPrice'].to_f
       inventory = variant_obj['skuVal']['inventory']
-      variant = ProductVariant.new(product: self, cost: cost, inventory: inventory)
-      variant.save
+      variant = ProductVariant.create(product: self, cost: cost, inventory: inventory)
 
       variant_obj['skuAttr'].split(';').each do |skuAttr|
         attrs = skuAttr.split(/[#:]/)
@@ -137,8 +136,7 @@ class Product < ApplicationRecord
 
     shopify_product.variants.each do |shopify_variant| 
       variant = self.product_variants.find(shopify_variant.sku)
-      variant.shopify_id = shopify_variant.id
-      variant.save
+      variant.update(shopify_id: shopify_variant.id)
     end
   end
 

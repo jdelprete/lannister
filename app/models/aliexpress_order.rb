@@ -25,9 +25,10 @@ class AliexpressOrder < ApplicationRecord
   end
 
   def fulfill_items(new_tracking_company, new_tracking_code)
-    self.tracking_code = new_tracking_code
-    self.tracking_company = new_tracking_company
-    self.save
+    self.update(
+      tracking_code: new_tracking_code,
+      tracking_company: new_tracking_company
+    )
 
     if tracking_code.present?
       shopify_fulfillment = ShopifyAPI::Fulfillment.new
