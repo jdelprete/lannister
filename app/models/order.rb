@@ -6,6 +6,7 @@ class Order < ApplicationRecord
     order = Order.new
     order.shopify_id = shopify_order.id
     order.shopify_order_number = shopify_order.number
+    order.shopify_name = shopify_order.name
     order.ordered_at = DateTime.parse(shopify_order.created_at)
     order.currency = shopify_order.currency
     order.shipping_address = shopify_order.shipping_address.attributes
