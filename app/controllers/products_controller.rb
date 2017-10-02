@@ -21,6 +21,11 @@ class ProductsController < ApplicationController
     product.images = product.images.where(id: params[:images]) unless params[:images].blank?
     product.product_variants = product.product_variants.where(id: params[:variants]) unless params[:variants].blank?
 
+    params[:indirect_variants].each do |variant_id|
+      product_variant = ProductVariant.find(variant_id)
+      product.indirect_variants.create(product_variant_id: variant_id) if product_variant.present?
+    end
+
     res = product.import # TODO check res
   end
 

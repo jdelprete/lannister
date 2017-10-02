@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170928173742) do
+ActiveRecord::Schema.define(version: 20171002171459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,17 @@ ActiveRecord::Schema.define(version: 20170928173742) do
     t.datetime "updated_at", null: false
     t.bigint "product_id"
     t.index ["product_id"], name: "index_images_on_product_id"
+  end
+
+  create_table "indirect_variants", force: :cascade do |t|
+    t.bigint "product_variant_id"
+    t.bigint "product_id"
+    t.bigint "shopify_id"
+    t.string "sku"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_indirect_variants_on_product_id"
+    t.index ["product_variant_id"], name: "index_indirect_variants_on_product_variant_id"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -76,13 +87,6 @@ ActiveRecord::Schema.define(version: 20170928173742) do
     t.bigint "shopify_id"
     t.index ["image_id"], name: "index_product_variants_on_image_id"
     t.index ["product_id"], name: "index_product_variants_on_product_id"
-  end
-
-  create_table "product_variants_products", id: false, force: :cascade do |t|
-    t.bigint "product_id"
-    t.bigint "product_variant_id"
-    t.index ["product_id"], name: "index_product_variants_products_on_product_id"
-    t.index ["product_variant_id"], name: "index_product_variants_products_on_product_variant_id"
   end
 
   create_table "product_variants_variant_options", id: false, force: :cascade do |t|

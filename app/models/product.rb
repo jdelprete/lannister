@@ -1,11 +1,11 @@
 class Product < ApplicationRecord
   before_destroy :remove_primary_image
-  has_many :images
+  has_many :images, dependent: :destroy
   belongs_to :primary_image, class_name: 'Image', optional: true
   belongs_to :aliexpress_shop
-  has_many :product_variants
-  has_many :variant_options
-  has_and_belongs_to_many :indirect_variants, class_name: 'ProductVariant'
+  has_many :product_variants, dependent: :destroy
+  has_many :variant_options, dependent: :destroy
+  has_many :indirect_variants, dependent: :destroy
 
   def self.create_from_url(product_url)
     product_url = product_url.split('?').first
@@ -95,7 +95,7 @@ class Product < ApplicationRecord
 
           ali_prop_id = attrs[0].to_i
           ali_sku = attrs[1].to_i
-          title = attrs[2]
+          title = attrs[2] || product_page.css("[data-sku-id='#{ali_sku}']").text.strip
           category = options[ali_prop_id][:category]
 
           variant.variant_options << VariantOption.find_or_create_by(title: title, category: category, ali_sku_prop: ali_prop_id, ali_sku: ali_sku, product: self)
@@ -117,9 +117,9 @@ class Product < ApplicationRecord
 
     shopify_product.title = self.title
     shopify_product.body_html = self.description
-    shopify_product.options = self.sorted_variant_options.map { |opt| opt.as_shopify_option } if has_many_variants?
-    shopify_product.variants = self.product_variants.map { |var| var.as_shopify_variant }
-    shopify_product.images = self.images.map { |img| img.as_shopify_image } unless has_many_variants? # images are added after to get the variant ids
+    shopify_product.options = self.sorted_variant_options.map(&:as_shopify_option) if has_many_variants?
+    shopify_product.variants = self.all_variants.map(&:as_shopify_variant)
+    shopify_product.images = self.images.map(&:as_shopify_image) unless has_many_variants? # images are added after to get the variant ids
 
     shopify_product
   end
@@ -127,21 +127,38 @@ class Product < ApplicationRecord
   def import
     shopify_product = self.as_shopify_product
     shopify_product.save
-    
+
     # images are added after save to get the variant ids
     shopify_product.images = self.images.map { |img| img.as_shopify_image(shopify_product.variants) } if has_many_variants?
+
+
+    self.indirect_variants.each do |indirect_variant|
+      next if indirect_variant.product_variant.image.nil?
+
+      shopify_image = indirect_variant.product_variant.image.as_shopify_image
+
+      shopify_product.variants.each do |shopify_variant|
+        shopify_image.variant_ids << shopify_variant.id if shopify_variant.sku == indirect_variant.sku
+      end
+
+      shopify_product.images << shopify_image
+    end
+
     shopify_product.save
     
     self.update(shopify_id: shopify_product.id)
 
     shopify_product.variants.each do |shopify_variant| 
-      variant = self.product_variants.find(shopify_variant.sku)
-      variant.update(shopify_id: shopify_variant.id)
+      if shopify_variant.sku.to_s.include?('-')
+        self.indirect_variants.find_by(sku: shopify_variant.sku).update(shopify_id: shopify_variant.id)
+      else
+        self.product_variants.find(shopify_variant.sku).update(shopify_id: shopify_variant.id)
+      end
     end
   end
 
   def has_many_variants?
-    self.product_variants.size > 1
+    self.product_variants.size + self.indirect_variants.size > 1
   end
 
   def imported?
