@@ -11,6 +11,10 @@ class ProductVariant < ApplicationRecord
     self.sorted_variant_options.map { |o| o.title }.join('/')
   end
 
+  def full_title
+    "#{self.product.title} - #{self.title}"
+  end
+
   def shopify_sku
     self.id.to_s
   end
@@ -27,7 +31,7 @@ class ProductVariant < ApplicationRecord
 
     if self.product.has_many_variants?
       if sorted_variant_options.empty? # this would mean that there are indirect variants but just one direct variant
-        shopify_variant.attributes["option1"] = shopify_sku # fill with random option so that shopify is happy
+        shopify_variant.attributes["option1"] = 'Original' # fill with random option so that shopify is happy
       else
         sorted_variant_options.each_with_index do |option, i|
           shopify_variant.attributes["option#{i+1}"] = option.title
