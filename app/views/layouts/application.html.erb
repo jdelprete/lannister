@@ -123,14 +123,14 @@
         <nav class="nav-sidebar bottom">
           <ul class="nav-sidebar-menu">
             <li v-pre>
-              <a href="https://storename.myshopify.com/admin" class="" target="_blank">
+              <a href="<%= current_user.store_url %>" class="" target="_blank">
                 <svg class="icon icon-sidebar-store">
                   <use xlink:href="/img/app-icons.svg#icon-sidebar-store"></use>
                 </svg>
               </a>
               <ul class="sub-menu ">
                 <li>
-                  <a href="https://storename.myshopify.com/admin" target="_blank" class="">storename.com
+                  <a href="<%= current_user.store_url %>" target="_blank" class=""><%= current_user.shopify_store_name %>
                   </a>
                 </li>
               </ul>

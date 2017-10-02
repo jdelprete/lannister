@@ -11,7 +11,12 @@
 
   a {
     margin: 3px 0;
+
+    &:hover {
+      opacity: 0.5;
+    }
   }
+
 }
 
 .devise-header {

@@ -21,6 +21,21 @@
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
+  <div class="field input-block">
+    <%= f.label :shopify_store_name %><br />
+    <%= f.text_field :shopify_store_name %>
+  </div>
+
+  <div class="field input-block">
+    <%= f.label :api_key, 'API Key' %><br />
+    <%= f.text_field :api_key %>
+  </div>
+
+  <div class="field input-block">
+    <%= f.label :api_password, 'API Password' %><br />
+    <%= f.text_field :api_password %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Sign up", class: 'btn btn-primary btn-block btn-lg devise-action-btn' %>
   </div>
