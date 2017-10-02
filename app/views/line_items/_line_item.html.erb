@@ -1,7 +1,7 @@
 <tr class="">
   <td class="image" style="width: 40px;"><img alt="<%= line_item.product.title %>" class="order-thumbnail" src="<%= line_item.product_variant.image.url %>"></td>
   <td class="text nowrap" style="width: 35%;">
-    <a href="#" target="_blank"><%= line_item.product.title.truncate(48) %></a>
+    <a href="<%= line_item.product.url %>" target="_blank"><%= line_item.product.title.truncate(48) %></a>
     <br>
     <span class="grey-color"><%= line_item.product_variant.shopify_sku %></span>
   </td>
