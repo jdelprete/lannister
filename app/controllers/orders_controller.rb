@@ -8,6 +8,12 @@ class OrdersController < ApplicationController
       Order.create_from_shopify_order(shopify_order)
     end
 
-    @orders = Order.order('shopify_order_number DESC')
+    if params[:status] == 'to_order'
+      @orders = Order.distinct.joins(:aliexpress_orders).where(:aliexpress_orders => { ali_order_number: nil }).order('shopify_order_number DESC')
+    elsif params[:status] == 'processing'
+      @orders = Order.distinct.joins(:aliexpress_orders).where(:aliexpress_orders => { tracking_code: nil }).order('shopify_order_number DESC')
+    else
+      @orders = Order.order('shopify_order_number DESC')
+    end
   end
 end

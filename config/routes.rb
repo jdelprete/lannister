@@ -8,4 +8,6 @@ Rails.application.routes.draw do
 
   resources :orders
   resources :aliexpress_orders
+
+  get '/dashboard', to: 'dashboard#index'
 end

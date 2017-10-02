@@ -1,0 +1,225 @@
+<div class="container main-content">
+  <div class="row margin-top">
+    <div class="col-xs-12">
+    </div>
+  </div>
+  <div class="row dash-title">
+    <div class="col-xs-12 headers-block">
+      <h1>Welcome Back!</h1><span class="muted-text">Let's see what happened while you were away.</span>
+    </div>
+  </div>
+  <div>
+    <div class="row margin-top">
+      <div class="col-xs-6">
+        <a class="panel btn-notification container-flex flex-between" href="/orders?status=to_order"><span class="container-flex"><span><svg class="icon-sidebar-file">
+          <use xlink:href="/img/app-icons.svg#icon-sidebar-file" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></span> 
+          <span class="<% if @num_orders_to_order > 0 %>body-text<% else %>muted-text<% end %>">To Order</span></span>
+          <span class="container-flex">
+            <% if @num_orders_to_order > 0 %><span class="badge badge-warning"><%= @num_orders_to_order %></span><% end %>
+            <span><svg class="icon-full-arrow-right"><use xlink:href="/img/app-icons.svg#icon-full-arrow-right" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg>
+            </span>
+          </span>
+        </a>
+      </div>
+      <div class="col-xs-6">
+        <a class="panel btn-notification container-flex flex-between" href="/orders?status=processing"><span class="container-flex"><span><svg class="icon-sidebar-file">
+          <use xlink:href="/img/app-icons.svg#icon-sidebar-file" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></span> 
+          <span class="<% if @num_orders_processing > 0 %>body-text<% else %>muted-text<% end %>">In Processing</span></span>
+          <span class="container-flex">
+            <% if @num_orders_processing > 0 %><span class="badge badge-primary"><%= @num_orders_processing %></span><% end %>
+            <span>
+              <svg class="icon-full-arrow-right"><use xlink:href="/img/app-icons.svg#icon-full-arrow-right" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg>
+            </span>
+          </span>
+        </a>
+      </div>
+      <!-- <div class="col-xs-4">
+        <a class="panel btn-notification container-flex flex-between" href="/notifications"><span class="container-flex"><span><svg class="icon-sidebar-bell">
+        <use xlink:href="/img/app-icons.svg#icon-sidebar-bell" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></span> <span class="body-text">Notifications</span></span> <span class="container-flex"><span class="badge badge-danger">1</span> <span><svg class="icon-full-arrow-right">
+        <use xlink:href="/img/app-icons.svg#icon-full-arrow-right" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></span></span></a>
+      </div> -->
+    </div>
+    <!-- <div class="row margin-top">
+      <div>
+        <div class="col-sm-12 col-md-6">
+          <h3 class="dash-filter-title">Total Sales</h3>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div class="row date-interval-picker">
+            <div class="col-xs-4 relative">
+              <div class="input-icon-block">
+                <input class="date form-control input-icon" data-format="yyyy-MM-dd" name="filter[date_from]" placeholder="YYYY-MM-DD" type="text" value="">
+                <div class="add-on">
+                  <button class="btn-transparent" type="button"><svg class="icon-calendar icon-input">
+                  <use xlink:href="/img/app-icons.svg#icon-calendar" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-4 relative">
+              <div class="input-icon-block">
+                <input class="date form-control" data-format="yyyy-MM-dd" name="filter[date_to]" placeholder="YYYY-MM-DD" type="text" value="">
+                <div class="add-on">
+                  <button class="btn-transparent" type="button"><svg class="icon-calendar icon-input">
+                  <use xlink:href="/img/app-icons.svg#icon-calendar" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <div class="dropdown">
+                <button class="btn btn-default btn-block dropdown-toggle btn-icon btn-icon-right" data-toggle="dropdown" type="button"><span class="btn-icon-text">Select Date Range</span> <span class="btn-icon-wrap"><svg class="icon icon-arrow-more">
+                <use xlink:href="/img/app-icons.svg#icon-arrow-more" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></span></button>
+                <div class="dropdown-menu dropdown-menu-right dropdown-select">
+                  <ul>
+                    <li>
+                      <a href="#">Today</a>
+                    </li>
+                    <li>
+                      <a href="#">Yesterday</a>
+                    </li>
+                    <li>
+                      <a href="#">Last 7 days</a>
+                    </li>
+                    <li>
+                      <a href="#">Last 30 days</a>
+                    </li>
+                    <li>
+                      <a href="#">Last 90 days</a>
+                    </li>
+                    <li>
+                      <a href="#">Week to date</a>
+                    </li>
+                    <li>
+                      <a href="#">Month to date</a>
+                    </li>
+                    <li>
+                      <a href="#">Quarter to date</a>
+                    </li>
+                    <li>
+                      <a href="#">Year to date</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top equal-height">
+      <div class="col-xs-8">
+        <div class="panel">
+          <div class="panel-body">
+          <div class="">
+            <div class="chart-legend">
+              <div class="chart-legend-line">
+                <div class="first-legend legend-circle"></div>Sales
+              </div>
+              <div class="chart-legend-line">
+                <div class="second-legend legend-circle"></div>Cost
+              </div>
+            </div>
+            <canvas height="255" style="display: block;" width="700"></canvas>
+          </div><img class="data-chart" src="" style="width: 100%; display: none;"></div>
+          <div id="chartjs-tooltip" style="opacity: 0; z-index: -1; left: 172px; top: 111px;">
+            <div class="tooltip-title">
+              2017-09-06
+            </div>
+            <div class="tooltip-body">
+              <div class="tooltip-body-row">
+                <div>
+                  1 Orders
+                </div>
+                <div>
+                  29.99 USD
+                </div>
+              </div>
+              <div class="tooltip-body-row">
+                <div>
+                  Costs
+                </div>
+                <div>
+                  7.19 USD
+                </div>
+              </div>
+              <div class="tooltip-body-row">
+                <div>
+                  Earnings
+                </div>
+                <div>
+                  22.80 USD
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="panel dash-metric">
+          <div class="panel-header container-flex flex-between">
+            <h3>Overview</h3>
+            <div class="container-flex" data-original-title="" title="">
+              <svg class="icon-base">
+              <use xlink:href="/images/icons.svg#icon-sidebar-settings" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg>
+            </div>
+          </div>
+          <div>
+            <div class="dash-metric-row dash-metric-row-merged">
+              <span class="dash-metric-label"><span>Sales</span> <span class="percentage down" title="Old value: 2158USD; Diff: -963USD">▼ 45%</span></span> <span class="number"><span class="number-value">1194.62</span> <span class="number-currency muted-text">USD</span></span>
+            </div>
+            <div class="dash-metric-row">
+              <span class="dash-metric-label"><span>Orders</span> <span class="percentage down" title="Old value: 82; Diff: -45">▼ 55%</span></span> <span class="number"><span class="number-value">37</span> <span class="number-currency muted-text"></span></span>
+            </div>
+            <div class="dash-metric-row">
+              <span class="dash-metric-label"><span>Costs</span></span>
+              <div class="info-box" data-original-title="" title=""></div><span class="percentage down" title="Old value: 1058USD; Diff: -738USD">▼ 70%</span> <span class="number"><span class="number-value">319.42</span> <span class="number-currency muted-text">USD</span></span>
+            </div>
+            <div class="dash-metric-header">
+              <span class="dash-metric-label"><span>Earnings</span> <span class="percentage down" title="Old value: 1100USD; Diff: -225USD">▼ 20%</span></span> <span class="number"><span class="number-value">875.20</span> <span class="number-currency muted-text">USD</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top">
+      <div class="col-xs-12">
+        <div class="panel dash-table">
+          <div class="panel-header">
+            <h3><span>Top Items</span></h3>
+          </div>
+          <div class="dash-table-body">
+            <div class="col-xs-12 dash-table-row">
+              <span class="dash-table-row-start">1</span> <span class="dash-table-row-thumbnail"><img class="w40" src="https://cdn.shopify.com/s/files/1/2091/3883/products/lightbox-6.jpg?v=1502845446"></span> <span class="dash-table-row-middle"><a href="https://storename.myshopify.com/admin/products/10249699529" target="_blank">Portable Lightbox Home Photography Studio – Take Beautiful Pictures</a></span> <span class="dash-table-row-pieces">30 Pieces</span> <span class="dash-table-row-total"><span><span class="number-value">899.70</span> <span class="number-currency muted-text">USD</span></span></span> <span class="dash-table-row-percentage"><span class="percentage up" title="Old value: 270USD; Diff: 630USD">▲ 233%</span></span> <span class="dash-table-row-end"></span>
+              <div>
+                <span class="dash-table-row-end"><iframe class="chartjs-hidden-iframe" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;" tabindex="-1"><span class="dash-table-row-end"></span>
+                <div class="spark-tooltip">
+                  <table></table>
+                </div>
+                <canvas height="40" style="display: block;" width="80"></canvas></iframe></span>
+              </div>
+            </div>
+            <div class="col-xs-12 dash-table-row">
+              <span class="dash-table-row-start">2</span> <span class="dash-table-row-thumbnail"><img class="w40" src="https://cdn.shopify.com/s/files/1/2091/3883/products/cat-lamp-red_b9a3f4b5-7831-4374-a529-f80f569d28d4.jpg?v=1498500341"></span> <span class="dash-table-row-middle"><a href="https://storename.myshopify.com/admin/products/9762552201" target="_blank">LED Cat Lamp – The Cutest Sleep Companion</a></span> <span class="dash-table-row-pieces">6 Pieces</span> <span class="dash-table-row-total"><span><span class="number-value">119.94</span> <span class="number-currency muted-text">USD</span></span></span> <span class="dash-table-row-percentage"><span class="percentage down" title="Old value: 1399USD; Diff: -1279USD">▼ 91%</span></span> <span class="dash-table-row-end"></span>
+              <div>
+                <span class="dash-table-row-end"><iframe class="chartjs-hidden-iframe" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;" tabindex="-1"><span class="dash-table-row-end"></span>
+                <div class="spark-tooltip">
+                  <table></table>
+                </div>
+                <canvas height="40" style="display: block;" width="80"></canvas></iframe></span>
+              </div>
+            </div>
+            <div class="col-xs-12 dash-table-row">
+              <span class="dash-table-row-start">3</span> <span class="dash-table-row-thumbnail"><img class="w40" src="https://cdn.shopify.com/s/files/1/2091/3883/products/body-kun-10.jpg?v=1502827027"></span> <span class="dash-table-row-middle"><a href="https://storename.myshopify.com/admin/products/10036610121" target="_blank">Body-Kun Drawing Figurine – Become A Better Artist</a></span> <span class="dash-table-row-pieces">2 Pieces</span> <span class="dash-table-row-total"><span><span class="number-value">79.98</span> <span class="number-currency muted-text">USD</span></span></span> <span class="dash-table-row-percentage"><span class="percentage down" title="Old value: 480USD; Diff: -400USD">▼ 83%</span></span> <span class="dash-table-row-end"></span>
+              <div>
+                <span class="dash-table-row-end"><iframe class="chartjs-hidden-iframe" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;" tabindex="-1"><span class="dash-table-row-end"></span>
+                <div class="spark-tooltip">
+                  <table></table>
+                </div>
+                <canvas height="40" style="display: block;" width="80"></canvas></iframe></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
