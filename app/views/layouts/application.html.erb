@@ -8,16 +8,6 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <meta charset="UTF-8">
-    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/hmanipjnbjnhoicdnooapcnfonebefel">
-    <script>
-      window.dataLayer = [{
-          'oberloUserId': 315151,
-          'signUp': '',
-          'storeAssigned': '',
-          'confirmedSale': 1,
-          'hasBecomeMerchant': ''
-      }];
-    </script>
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://app.oberlo.com/apple-touch-icon-57x57.png?v=2">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://app.oberlo.com/apple-touch-icon-114x114.png?v=2">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://app.oberlo.com/apple-touch-icon-72x72.png?v=2">
@@ -166,8 +156,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="https://app.oberlo.com/logout" target="" class="">Logout
-                  </a>
+                  <%= link_to('Log Out', destroy_user_session_path, method: :delete) %>
                 </li>
               </ul>
             </li>

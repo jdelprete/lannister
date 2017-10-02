@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root to: redirect('/dashboard')
 
+  devise_for :users
+  
   resources :products, only: [:index, :create, :update]
   get '/products/import', to: 'products#import_index', as: 'import_index'
   put '/products/:id/import', to: 'products#import', as: 'product_import'

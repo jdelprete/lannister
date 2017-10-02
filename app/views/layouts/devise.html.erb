@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Lannister</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://app.oberlo.com/apple-touch-icon-57x57.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://app.oberlo.com/apple-touch-icon-114x114.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://app.oberlo.com/apple-touch-icon-72x72.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://app.oberlo.com/apple-touch-icon-144x144.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="https://app.oberlo.com/apple-touch-icon-60x60.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://app.oberlo.com/apple-touch-icon-120x120.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="https://app.oberlo.com/apple-touch-icon-76x76.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://app.oberlo.com/apple-touch-icon-152x152.png?v=2">
+    <link rel="icon" type="image/png" href="https://app.oberlo.com/favicon-196x196.png?v=2" sizes="196x196">
+    <link rel="icon" type="image/png" href="https://app.oberlo.com/favicon-96x96.png?v=2" sizes="96x96">
+    <link rel="icon" type="image/png" href="https://app.oberlo.com/favicon-32x32.png?v=2" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://app.oberlo.com/favicon-16x16.png?v=2" sizes="16x16">
+    <link rel="icon" type="image/png" href="https://app.oberlo.com/favicon-128.png?v=2" sizes="128x128">
+    <meta name="application-name" content="&nbsp;">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="https://app.oberlo.com/mstile-144x144.png?v=2">
+    <meta name="msapplication-square70x70logo" content="https://app.oberlo.com/mstile-70x70.png?v=2">
+    <meta name="msapplication-square150x150logo" content="https://app.oberlo.com/mstile-150x150.png?v=2">
+    <meta name="msapplication-wide310x150logo" content="https://app.oberlo.com/mstile-310x150.png?v=2">
+    <meta name="msapplication-square310x310logo" content="https://app.oberlo.com/mstile-310x310.png?v=2">
+  </head>
+
+  <div class="body-center" v-pre>
+    <div class="panel">
+      <div class="panel-body">
+        <%= yield %>
+
+        <!-- <form role="form" method="POST" action="https://app.oberlo.com/login">
+          <input type="hidden" name="_token" value="LbT8fsA1Sn0MAhC5LHAoPBvBTgyPDf5NPCZM6vnT">
+          <div class="input-block ">
+            <label>Email</label>
+            <input type="email" class="form-control" name="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,63}$" placeholder="Email" value="">
+          </div>
+          <div class="input-block ">
+            <label>Password</label>
+            <input type="password" class="form-control" placeholder="Password" name="password">
+          </div>
+          <div class="margin-small-top">
+            <button type="submit" class="btn btn-primary btn-block btn-lg">
+              Log In
+            </button>
+            <div class="align-center margin-small-top">
+              <a class="btn btn-link" href="https://app.oberlo.com/password/reset">
+                        Forgot Password?
+                      </a>
+            </div>
+          </div>
+        </form> -->
+      </div>
+    </div>
+  </div>
+</html>

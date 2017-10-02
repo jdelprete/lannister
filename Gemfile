@@ -36,6 +36,7 @@ gem 'config', '~> 1.4.0'
 gem 'shopify_api', '~> 4.9.0'
 gem 'flag-icons-rails', '~> 2.5'
 gem 'money', '~> 6.9'
+gem 'devise', '~> 4.3.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
