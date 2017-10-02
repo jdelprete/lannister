@@ -23,4 +23,25 @@ class ProductsController < ApplicationController
 
     res = product.import # TODO check res
   end
+
+  def search
+    query = params[:query]
+
+    render :json => [] and return if query.blank?
+
+    products = Product.where("title ILIKE ?", "%#{query}%")
+
+    results = products.map do |product|
+      {
+        id: product.id,
+        title: product.title,
+        image_src: product.primary_image.url,
+        variants: product.product_variants.map do |variant|
+          { id: variant.id, title: variant.title, image_src: variant.image.url, cost: variant.cost }
+        end
+      }
+    end
+
+    render :json => results
+  end
 end

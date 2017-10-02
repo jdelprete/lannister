@@ -5,3 +5,49 @@
 .danger-panel {
   display: none;
 }
+
+.search-variants-results {
+  padding: 0;
+}
+
+.search-variants-product {
+  line-height: 50px;
+  list-style-type: none;
+  border-bottom: 1px solid #e1e8f0;
+
+  img {
+    height: 30px;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+}
+
+.search-variants-result-title {
+  margin-left: 20px;
+}
+
+.search-variants-variant {
+  position: relative;
+  border-top: 1px solid #e1e8f0;
+
+  &:hover {
+    background-color: rgb(250, 250, 250);
+  }
+}
+
+.search-variant-checkbox {
+  margin-left: 20px;
+}
+
+.search-variants-result-cost {
+  position: absolute;
+  right: 20px;
+}
+
+.search-variants-empty {
+  color: rgb(200, 200, 200);
+}

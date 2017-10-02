@@ -139,7 +139,7 @@
 
       </div>
       
-      <%= render partial: "product_variants/product_variants", object: product.product_variants %>
+      <%= render partial: "product_variants/product_variants", object: product.product_variants, locals: { product: product } %>
 
       <%= render partial: "images/images", object: product.images %>
     </div>

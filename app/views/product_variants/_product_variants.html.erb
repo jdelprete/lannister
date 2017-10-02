@@ -1,10 +1,9 @@
 <div class="tabs-body variants-tab-body">
   <div style="max-height: 550px; overflow: auto;">
-    <table class="variants-table old-style">
+    <table class="variants-table old-style margin-bottom">
       <thead>
         <tr>
           <th colspan="2" class="nowrap">
-            <input type="checkbox"> Use all
           </th>
 
           <% product_variants.first.sorted_variant_options.each do |option| %>
@@ -19,5 +18,45 @@
         <%= render product_variants %>
       </tbody>
     </table>
+
+    <div class="<% if product.indirect_variants.blank? %>hide<% end %> indirect-variants-table-wrap margin-bottom">
+      <h3>Indirect variants</h3>
+      <table class="indirect-variants-table old-style">
+        <thead>
+          <tr>
+            <th colspan="2" class="nowrap">
+            </th>
+            <th>Title</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+    <button type="button" class="btn btn-success center-block add-variants-btn">Add Indirect Variant</button>
+
+    <div role="document" class="variants-modal modal-dialog modal-dialog-open hide">
+      <div class="modal-content big-700 scrollable">
+        <div class="modal-header">
+          <h3>Add Indirect Variants</h3>
+        </div>
+        <div class="modal-body">
+          <div>
+            <input type="text" class="search-variants-input">
+          </div>
+
+          <div>
+            <p class="align-center margin-top search-variants-empty hide">No search results</p>
+            <ul class="search-variants-results"></ul>
+          </div>
+        </div>
+        <div class="modal-footer modal-footer-with-text">
+          <button type="button" class="btn btn-success add-variants-confirm-btn" data-product-id="<%= product.id %>">Add</button>
+        </div>
+      </div>
+    </div>
   </div>
+
 </div>

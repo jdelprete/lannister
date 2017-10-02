@@ -22,3 +22,9 @@
 .v-align-middle {
   vertical-align: middle;
 }
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}
