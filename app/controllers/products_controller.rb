@@ -1,7 +1,3 @@
-require 'httparty'
-require 'nokogiri'
-require 'watir'
-
 class ProductsController < ApplicationController
   protect_from_forgery prepend: true
   skip_before_action :set_layout_variables, only: [:create, :import]
