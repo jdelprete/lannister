@@ -1,17 +1,18 @@
 class Order < ApplicationRecord
   has_many :aliexpress_orders, dependent: :destroy
+  belongs_to :user
   serialize :shipping_address, JSON
 
-  def self.create_from_shopify_order(shopify_order)
+  def self.create_from_shopify_order(shopify_order, user)
     line_items = shopify_order.line_items.reduce([]) do |arr, shopify_li| 
-      li = LineItem.create_from_shopify_line_item(shopify_li)
+      li = LineItem.create_from_shopify_line_item(shopify_li, user)
       arr << li if li
       arr
     end
 
     return nil if line_items.empty? # there are no line items handled by lannister
 
-    order = Order.new(
+    order = current_user.orders.new(
       shopify_id: shopify_order.id,
       shopify_order_number: shopify_order.number,
       shopify_name: shopify_order.name,

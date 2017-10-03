@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_layout_variables
-    @num_unfulfilled_orders = AliexpressOrder.where(tracking_code: nil).group(:order_id).count.length
+    @num_unfulfilled_orders = current_user.aliexpress_orders.where(tracking_code: nil).group(:order_id).count.length
   end
 
   def config_shopify_gem

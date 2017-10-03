@@ -4,17 +4,16 @@ class LineItem < ApplicationRecord
   has_one :product, through: :product_variant
   has_one :order, through: :aliexpress_order
 
-  def self.create_from_shopify_line_item(shopify_line_item)
-    unless product_variant = ProductVariant.find_by(shopify_id: shopify_line_item.variant_id)
-      indirect_variant = IndirectVariant.find_by(shopify_id: shopify_line_item.variant_id)
+  def self.create_from_shopify_line_item(shopify_line_item, user)
+    unless product_variant = user.product_variants.find_by(shopify_id: shopify_line_item.variant_id)
+      indirect_variant = user.indirect_variants.find_by(shopify_id: shopify_line_item.variant_id)
       product_variant = indirect_variant.product_variant if indirect_variant.present?
     end
 
     return nil if product_variant.nil?
 
-    new_line_item = LineItem.new(
+    new_line_item = product_variant.line_items.new(
       quantity: shopify_line_item.quantity, 
-      product_variant: product_variant,
       price: shopify_line_item.price,
       variant_title: shopify_line_item.variant_title,
       shopify_id: shopify_line_item.id

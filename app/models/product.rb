@@ -3,16 +3,17 @@ class Product < ApplicationRecord
   has_many :images, dependent: :destroy
   belongs_to :primary_image, class_name: 'Image', optional: true
   belongs_to :aliexpress_shop
+  belongs_to :user
   has_many :product_variants, dependent: :destroy
   has_many :variant_options, dependent: :destroy
   has_many :indirect_variants, dependent: :destroy
 
-  def self.create_from_url(product_url)
+  def self.create_from_url(product_url, user)
     product_url = product_url.split('?').first
 
-    return nil if Product.find_by(url: product_url)
+    return nil if user.products.find_by(url: product_url)
 
-    product = Product.new
+    product = user.products.new
     product.url = product_url
 
     browser = Watir::Browser.new(:phantomjs)
@@ -87,7 +88,7 @@ class Product < ApplicationRecord
     variant_objs.each do |variant_obj|
       cost = variant_obj['skuVal']['actSkuCalPrice'].to_f
       inventory = variant_obj['skuVal']['inventory']
-      variant = ProductVariant.create(product: self, cost: cost, inventory: inventory)
+      variant = self.product_variants.create(cost: cost, inventory: inventory)
 
       if variant_obj['skuAttr']
         variant_obj['skuAttr'].split(';').each do |skuAttr|
@@ -98,7 +99,7 @@ class Product < ApplicationRecord
           title = attrs[2] || product_page.css("[data-sku-id='#{ali_sku}']").text.strip
           category = options[ali_prop_id][:category]
 
-          variant.variant_options << VariantOption.find_or_create_by(title: title, category: category, ali_sku_prop: ali_prop_id, ali_sku: ali_sku, product: self)
+          variant.variant_options << self.variant_options.find_or_create_by(title: title, category: category, ali_sku_prop: ali_prop_id, ali_sku: ali_sku)
 
           variant.update(image: self.images.find_by(url: options[ali_prop_id][:images][ali_sku])) if options[ali_prop_id][:images]
         end

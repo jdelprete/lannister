@@ -8,21 +8,21 @@ class ProductsController < ApplicationController
 
   def create
     product_url = params[:url]
-    Product.create_from_url(product_url)
+    Product.create_from_url(product_url, current_user)
   end
 
   def import_index
-    @products = Product.where(shopify_id: nil)
+    @products = current_user.products.where(shopify_id: nil)
   end
 
   def import
-    product = Product.find(params[:id])
+    product = current_user.products.find(params[:id])
 
     product.images = product.images.where(id: params[:images]) unless params[:images].blank?
     product.product_variants = product.product_variants.where(id: params[:variants]) unless params[:variants].blank?
 
     params[:indirect_variants].each do |variant_id|
-      product_variant = ProductVariant.find(variant_id)
+      product_variant = current_user.product_variants.find(variant_id)
       product.indirect_variants.create(product_variant_id: variant_id) if product_variant.present?
     end
 
@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
 
     render :json => [] and return if query.blank?
 
-    products = Product.where("title ILIKE ?", "%#{query}%")
+    products = current_user.products.where("title ILIKE ?", "%#{query}%")
 
     results = products.map do |product|
       {
