@@ -15,6 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:shopify_store_name, :api_key, :api_password])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:shopify_store_name, :api_key, :api_password, :shared_secret])
   end
 end

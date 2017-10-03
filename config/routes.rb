@@ -13,4 +13,9 @@ Rails.application.routes.draw do
   resources :aliexpress_orders
 
   get '/dashboard', to: 'dashboard#index'
+
+  namespace :shopify do
+    post '/orders/create', to: '/shopify_webhooks#orders_create'
+    post '/products/update', to: '/shopify_webhooks#products_update'
+  end
 end

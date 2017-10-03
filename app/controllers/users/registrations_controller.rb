@@ -10,7 +10,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super do |user|
-      # TODO set up webhooks
+      domain = request.protocol + request.domain
+
+      order_create_webhook = ShopifyAPI::Webhook.new
+      order_create_webhook.address = URI.join(domain, 'shopify/orders/create')
+      order_create_webhook.format = 'json'
+      order_create_webhook.topic = 'orders/create'
+      order_create_webhook.save
+
+      product_update_webhook = ShopifyAPI::Webhook.new
+      product_update_webhook.address = URI.join(domain, 'shopify/products/update')
+      product_update_webhook.format = 'json'
+      product_update_webhook.topic = 'products/update'
+      product_update_webhook.save
     end
   end
 

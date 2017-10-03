@@ -5,6 +5,10 @@ class Order < ApplicationRecord
 
   def self.create_from_shopify_order(shopify_order, user)
     line_items = shopify_order.line_items.reduce([]) do |arr, shopify_li| 
+      if shopify_li.is_a?(Hash)
+        shopify_li = ShopifyAPI::LineItem.new.from_json(shopify_li.to_json)
+      end
+
       li = LineItem.create_from_shopify_line_item(shopify_li, user)
       arr << li if li
       arr
@@ -18,7 +22,7 @@ class Order < ApplicationRecord
       shopify_name: shopify_order.name,
       ordered_at: DateTime.parse(shopify_order.created_at),
       currency: shopify_order.currency,
-      shipping_address: shopify_order.shipping_address.attributes
+      shipping_address: shopify_order.shipping_address.is_a?(Hash) ? shopify_order.shipping_address : shopify_order.shipping_address.attributes
     )
 
     if order.shipping_address['country_code'] == 'GB'
