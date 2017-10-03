@@ -27,13 +27,18 @@
   </div>
 
   <div class="field input-block">
-    <%= f.label :api_key, 'API Key' %><br />
+    <%= f.label :api_key, 'Shopify API Key' %><br />
     <%= f.text_field :api_key %>
   </div>
 
   <div class="field input-block">
-    <%= f.label :api_password, 'API Password' %><br />
+    <%= f.label :api_password, 'Shopify API Password' %><br />
     <%= f.text_field :api_password %>
+  </div>
+
+  <div class="field input-block">
+    <%= f.label :shared_secret, 'Shopify Shared Secret' %><br />
+    <%= f.text_field :shared_secret %>
   </div>
 
   <div class="actions">
