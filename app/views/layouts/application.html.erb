@@ -43,7 +43,7 @@
           </div>
           <ul class="nav navbar-nav navbar-right">
             <li class=" active " v-pre>
-              <a href="/products/import">Import List <span class="badge badge-primary">3</span></a>
+              <a href="/products/import">Import List <% if @num_unimported_products > 0 %><span class="badge badge-primary"><%= @num_unimported_products %></span><% end %></a>
             </li>
           </ul>
         </div>
@@ -77,7 +77,7 @@
               </a>
               <ul class="sub-menu ">
                 <li>
-                  <a href="/products/import" target="" class=" active ">Import List <span class="badge badge-primary">3</span></a>
+                  <a href="/products/import" target="" class=" active ">Import List <% if @num_unimported_products > 0 %><span class="badge badge-primary"><%= @num_unimported_products %></span><% end %></a>
                 </li>
                 <!-- <li>
                   <a href="/products" target="" class="">My Products <span class="badge badge-success">32</span></a>
