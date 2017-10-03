@@ -12,7 +12,7 @@ class Order < ApplicationRecord
 
     return nil if line_items.empty? # there are no line items handled by lannister
 
-    order = current_user.orders.new(
+    order = user.orders.new(
       shopify_id: shopify_order.id,
       shopify_order_number: shopify_order.number,
       shopify_name: shopify_order.name,

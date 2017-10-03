@@ -15,5 +15,7 @@ class OrdersController < ApplicationController
     else
       @orders = current_user.orders.order('shopify_order_number DESC')
     end
+
+    @title = 'Orders'
   end
 end

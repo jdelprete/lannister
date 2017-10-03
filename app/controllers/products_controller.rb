@@ -13,6 +13,7 @@ class ProductsController < ApplicationController
 
   def import_index
     @products = current_user.products.where(shopify_id: nil)
+    @title = 'Manage Products'
   end
 
   def import
