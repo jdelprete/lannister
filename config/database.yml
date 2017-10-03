@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
-  database: lannister_production
-  username: lannister
-  password: <%= ENV['LANNISTER_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
+  # database: lannister_production
+  # username: lannister
+  # password: <%= ENV['LANNISTER_DATABASE_PASSWORD'] %>
