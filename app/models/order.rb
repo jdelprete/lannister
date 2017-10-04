@@ -30,7 +30,12 @@ class Order < ApplicationRecord
       order.shipping_address.province = UkCounties.find_by(postcode_district: outward)
     end
 
-    order.save
+    if order.save
+      logger.info { "Order #{order.shopify_order_number} created" }
+    else
+      logger.error { "Order #{order.shopify_order_number} could not be created: #{order.errors.full_messages.to_sentence}" }
+      return
+    end
 
     line_items.group_by { |li| li.product.aliexpress_shop }.each do |aliexpress_shop, line_item_groups|
       ali_order = order.aliexpress_orders.create(aliexpress_shop_id: aliexpress_shop.id)

@@ -15,16 +15,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
       domain = request.protocol + request.domain
 
       order_create_webhook = ShopifyAPI::Webhook.new
-      order_create_webhook.address = domain + 'shopify/orders/create'
+      order_create_webhook.address = domain + '/shopify/orders/create'
       order_create_webhook.format = 'json'
       order_create_webhook.topic = 'orders/create'
-      order_create_webhook.save
+      
+      unless order_create_webhook.save
+        logger.error { "Could not create order/create webhook for user #{user.id}: #{order_create_webhook.inspect}" }
+      end
 
       product_update_webhook = ShopifyAPI::Webhook.new
       product_update_webhook.address = domain + '/shopify/products/update'
       product_update_webhook.format = 'json'
       product_update_webhook.topic = 'products/update'
-      product_update_webhook.save
+
+      unless product_update_webhook.save
+        logger.error { "Could not create product/update webhook for user #{user.id}: #{product_update_webhook.inspect}" }
+      end
     end
   end
 
