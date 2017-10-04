@@ -25,8 +25,8 @@ task :get_all_orders, [:user_id] => :environment do |t, args|
   ShopifyAPI::Order.all.each do |shopify_order|
     break if last_order && last_order.shopify_order_number >= shopify_order.number
 
-    Order.create_from_shopify_order(shopify_order, user)
-    orders_added += 1
+    o = Order.create_from_shopify_order(shopify_order, user)
+    orders_added += 1 unless o.nil?
   end
 
   puts "fetched #{orders_added} orders"
