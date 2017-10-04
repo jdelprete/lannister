@@ -86,7 +86,7 @@ class Product < ApplicationRecord
     end
 
     variant_objs.each do |variant_obj|
-      cost = variant_obj['skuVal']['actSkuCalPrice'].to_f
+      cost = (variant_obj['skuVal']['actSkuCalPrice'] || variant_obj['skuVal']['skuCalPrice']).to_f
       inventory = variant_obj['skuVal']['inventory']
       variant = self.product_variants.create(cost: cost, inventory: inventory)
 
@@ -131,7 +131,6 @@ class Product < ApplicationRecord
 
     # images are added after save to get the variant ids
     shopify_product.images = self.images.map { |img| img.as_shopify_image(shopify_product.variants) } if has_many_variants?
-
 
     self.indirect_variants.each do |indirect_variant|
       next if indirect_variant.product_variant.image.nil?
