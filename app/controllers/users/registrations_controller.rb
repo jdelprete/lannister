@@ -12,7 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super do |user|
       ShopifyAPI::Base.site = user.store_api_url
 
-      domain = request.protocol + request.domain
+      domain = request.protocol + request.host_with_port
 
       order_create_webhook = ShopifyAPI::Webhook.new
       order_create_webhook.address = domain + '/shopify/orders/create'
