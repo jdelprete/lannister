@@ -3,9 +3,10 @@ class ShopifyWebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token, :authenticate_user!, :config_shopify_gem, :set_layout_variables
 
   def orders_create
-    logger.info { "orders/create notification received with product ID #{shopify_product.id}" }
     request.body.rewind
-    Order.create_from_shopify_order(ShopifyAPI::Order.new.from_json(request.body.read), @user)
+    shopify_order = ShopifyAPI::Order.new.from_json(request.body.read)
+    logger.info { "orders/create notification received with product ID #{shopify_order.id}" }
+    Order.create_from_shopify_order(shopify_order, @user)
   end
 
   def products_update
