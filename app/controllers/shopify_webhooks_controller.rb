@@ -9,6 +9,20 @@ class ShopifyWebhooksController < ApplicationController
     Order.create_from_shopify_order(shopify_order, @user)
   end
 
+  def orders_paid
+    request.body.rewind
+    shopify_order = ShopifyAPI::Order.new.from_json(request.body.read)
+
+    logger.info { "orders/paid notification received with order ID #{shopify_order.id}" }
+
+    order = @user.orders.find_by(shopify_id: shopify_order.id)
+
+    if order && !order.is_paid
+      order.update(is_paid: shopify_order.financial_status == 'paid')
+      logger.info { "order with ID #{order.id} is_paid updated to #{order.is_paid}" }
+    end
+  end
+
   def products_update
     # only care about the title
 
@@ -21,7 +35,7 @@ class ShopifyWebhooksController < ApplicationController
 
     if product && product.title != shopify_product.title
       product.update(title: shopify_product.title)
-      logger.info { "product ##{product.id} title updated to #{product.title}" }
+      logger.info { "product with ID #{product.id} title updated to #{product.title}" }
     end
   end
 

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   namespace :shopify do
     post '/orders/create', to: '/shopify_webhooks#orders_create'
+    post '/orders/paid', to: '/shopify_webhooks#orders_paid'
     post '/products/update', to: '/shopify_webhooks#products_update'
   end
 end

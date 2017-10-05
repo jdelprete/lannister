@@ -35,9 +35,9 @@
           </div>
           <h3 class="nowrap space-small-top display-block"><span class="elephant-color">Order</span> <a href="https://<%= order.user.shopify_store_name %>.myshopify.com/admin/orders/<%= order.shopify_id %>" target="_blank"><%= order.shopify_name %></a> <span class="elephant-color"><%= order.ordered_at.strftime('%Y-%m-%d') %></span></h3>
           <div class="order-status space-small-left svg-container">
-            <svg class="float-left icon-unfulfilled color-warning" data-original-title="" title="">
-            <use xlink:href="/img/app-icons.svg#icon-unfulfilled" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg> <svg class="float-left icon-financial color-success" data-original-title="" title="">
-            <use xlink:href="/img/app-icons.svg#icon-financial" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg>
+            <svg class="float-left icon-financial <%= order.is_paid ? 'color-success' : 'color-danger' %>" data-original-title="" title="">
+              <use xlink:href="/img/app-icons.svg#icon-financial" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+            </svg>
           </div>
           <div class="margin-left">
             <span class="grey-color">Customer:</span> <a href="javascript:;" class="toggle-address-info"><%= order.shipping_address['name'] %></a>

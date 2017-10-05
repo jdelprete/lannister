@@ -20,7 +20,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
       order_create_webhook.topic = 'orders/create'
       
       unless order_create_webhook.save
-        logger.error { "Could not create order/create webhook for user #{user.id}: #{order_create_webhook.inspect}" }
+        logger.error { "Could not create orders/create webhook for user #{user.id}: #{order_create_webhook.inspect}" }
+      end
+
+      order_paid_webhook = ShopifyAPI::Webhook.new
+      order_paid_webhook.address = domain + '/shopify/orders/paid'
+      order_paid_webhook.format = 'json'
+      order_paid_webhook.topic = 'orders/paid'
+      
+      unless order_paid_webhook.save
+        logger.error { "Could not create orders/paid webhook for user #{user.id}: #{order_paid_webhook.inspect}" }
       end
 
       product_update_webhook = ShopifyAPI::Webhook.new
@@ -29,7 +38,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       product_update_webhook.topic = 'products/update'
 
       unless product_update_webhook.save
-        logger.error { "Could not create product/update webhook for user #{user.id}: #{product_update_webhook.inspect}" }
+        logger.error { "Could not create products/update webhook for user #{user.id}: #{product_update_webhook.inspect}" }
       end
     end
   end

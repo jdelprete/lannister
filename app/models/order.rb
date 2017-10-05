@@ -27,6 +27,7 @@ class Order < ApplicationRecord
       shopify_name: shopify_order.name,
       ordered_at: DateTime.parse(shopify_order.created_at),
       currency: shopify_order.currency,
+      is_paid: shopify_order.financial_status == 'paid',
       shipping_address: shopify_order.shipping_address.is_a?(Hash) ? shopify_order.shipping_address : shopify_order.shipping_address.attributes
     )
 
