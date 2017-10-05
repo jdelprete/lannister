@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   has_many :aliexpress_orders, dependent: :destroy
+  has_many :line_items, through: :aliexpress_orders
   belongs_to :user
   serialize :shipping_address, JSON
 
@@ -27,6 +28,7 @@ class Order < ApplicationRecord
       shopify_name: shopify_order.name,
       ordered_at: DateTime.parse(shopify_order.created_at),
       currency: shopify_order.currency,
+      total_price: shopify_order.total_price.to_f,
       is_paid: shopify_order.financial_status == 'paid',
       shipping_address: shopify_order.shipping_address.is_a?(Hash) ? shopify_order.shipping_address : shopify_order.shipping_address.attributes
     )
@@ -49,5 +51,15 @@ class Order < ApplicationRecord
     end
 
     order
+  end
+
+  def total_cost
+    self.line_items.reduce(0) do |total_cost, line_item|
+      total_cost += line_item.product_variant.cost
+    end
+  end
+
+  def total_profit
+    (total_price - total_cost).round(2)
   end
 end
