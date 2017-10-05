@@ -8,6 +8,6 @@ class OrdersController < ApplicationController
       @orders = current_user.orders.order('shopify_order_number DESC')
     end
 
-    @title = 'Orders'
+    @orders = @orders.where(shopify_id: params[:shopify_id]) if params[:shopify_id]
   end
 end
