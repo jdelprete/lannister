@@ -83,7 +83,7 @@
             </div>
           </div>
         </div>
-        <div class="border-bottom <% unless order.shipping_address['address2'] %>hide<% end %>">
+        <div class="border-bottom <% unless order.shipping_address['address2'].present? %>hide<% end %>">
           <label><strong class="grey-color">Address 2:</strong></label>
           <div class="mb10 clearfix">
             <div class="float-left">
@@ -111,7 +111,7 @@
           <label><strong class="grey-color">Province:</strong></label>
           <div class="mb10 clearfix">
             <div class="float-left">
-              Texas
+              <%= order.shipping_address['province'] %>
             </div>
             <div class="float-right">
               <a class="copy-button" data-clipboard-text="Texas" href="#" onclick="return false;">Copy</a>
@@ -122,7 +122,7 @@
           <label><strong class="grey-color">Zip:</strong></label>
           <div class="mb10 clearfix">
             <div class="float-left">
-              90268
+              <%= order.shipping_address['zip'] %>
             </div>
             <div class="float-right">
               <a class="copy-button" data-clipboard-text="90268" href="#" onclick="return false;">Copy</a>

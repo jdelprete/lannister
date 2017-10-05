@@ -83,7 +83,7 @@ $(function() {
 
   $('.toggle-address-info').on('click', function(e) {
     e.preventDefault();
-    $(this).parents('.aliexpress-order').find('.address-info').toggle();
+    $(this).parents('.order').find('.address-info').toggle();
   });
 
   $('.toggle-line-items > a').on('click', function(e) {
