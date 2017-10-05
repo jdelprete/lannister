@@ -36,9 +36,9 @@
           <div class="navbar-header" v-pre>
             <a href="#" onclick="return false;" class="navbar-brand container-flex">
               <svg class="icon icon-sidebar-products margin-small-right">
-                <use xlink:href="/img/app-icons.svg#<%= icon_id_from_title(@title) %>"></use>
+                <use xlink:href="/img/app-icons.svg#<%= icon_id %>"></use>
               </svg>
-              <%= @title %>
+              <%= title %>
             </a>
           </div>
           <ul class="nav navbar-nav navbar-right">
@@ -57,7 +57,7 @@
         <nav class="nav-sidebar top">
           <ul class="nav-sidebar-menu">
             <li v-pre>
-              <a href="/dashboard" class="" target="">
+              <a href="/dashboard" class="<% if controller_name == 'dashboard' %>active<% end %>" target="">
                 <svg class="icon icon-dashboard">
                   <use xlink:href="/img/app-icons.svg#icon-dashboard"></use>
                 </svg>
@@ -70,14 +70,14 @@
               </ul>
             </li>
             <li v-pre>
-              <a href="/products/import" class=" active " target="">
+              <a href="/products/import" class="<% if controller_name == 'products' %>active<% end %>" target="">
                 <svg class="icon icon-sidebar-products">
                   <use xlink:href="/img/app-icons.svg#icon-sidebar-products"></use>
                 </svg>
               </a>
               <ul class="sub-menu ">
                 <li>
-                  <a href="/products/import" target="" class=" active ">Import List <% if @num_unimported_products > 0 %><span class="badge badge-primary"><%= @num_unimported_products %></span><% end %></a>
+                  <a href="/products/import" target="" class="">Import List <% if @num_unimported_products > 0 %><span class="badge badge-primary"><%= @num_unimported_products %></span><% end %></a>
                 </li>
                 <!-- <li>
                   <a href="/products" target="" class="">My Products <span class="badge badge-success">32</span></a>
@@ -85,7 +85,7 @@
               </ul>
             </li>
             <li v-pre>
-              <a href="/orders" class="" target="">
+              <a href="/orders" class="<% if controller_name == 'orders' %>active<% end %>" target="">
                 <svg class="icon icon-sidebar-file">
                   <use xlink:href="/img/app-icons.svg#icon-sidebar-file"></use>
                 </svg>

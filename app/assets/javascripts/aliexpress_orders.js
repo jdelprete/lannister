@@ -28,12 +28,17 @@ $(function() {
 
       if (curValue != newValue) {
         var ajaxData = {};
+        var resourceUrl = '';
 
         if (category == 'ali-order') {
           ajaxData['ali_order_number'] = newValue;
+
+          resourceUrl = 'https://trade.aliexpress.com/order_detail.htm?orderId=' + newValue;
         } else {
           ajaxData['tracking_code'] = newValue;
           ajaxData['tracking_company'] = $this.siblings('.tracking-input').data('tracking-company');
+
+          resourceUrl = 'https://track.aftership.com/' + newValue;
         }
 
         $.ajax({
@@ -46,7 +51,7 @@ $(function() {
 
             if (newValue) {
               $form.siblings(`.${category}-link`)
-                .attr('href', 'http://trade.aliexpress.com/order_detail.htm?orderId=' + newValue)
+                .attr('href', resourceUrl)
                 .text(newValue)
                 .show();
 

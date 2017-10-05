@@ -4,6 +4,11 @@ class Order < ApplicationRecord
   serialize :shipping_address, JSON
 
   def self.create_from_shopify_order(shopify_order, user)
+    if user.orders.find_by(shopify_id: shopify_order.id)
+      logger.info { "Order with ID #{shopify_order.id} already created" }
+      return nil
+    end
+
     line_items = shopify_order.line_items.reduce([]) do |arr, shopify_li| 
       if shopify_li.is_a?(Hash)
         shopify_li = ShopifyAPI::LineItem.new.from_json(shopify_li.to_json)

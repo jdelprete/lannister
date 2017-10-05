@@ -23,7 +23,7 @@
               </span>
 
               <% if aliexpress_order.ali_order_number.present? %>
-                <a class="blue-color ali-order-link" href="http://trade.aliexpress.com/order_detail.htm?orderId=<%= aliexpress_order.ali_order_number %>" target="_blank"><%= aliexpress_order.ali_order_number %></a>
+                <a class="blue-color ali-order-link" href="https://trade.aliexpress.com/order_detail.htm?orderId=<%= aliexpress_order.ali_order_number %>" target="_blank"><%= aliexpress_order.ali_order_number %></a>
                 <a class="btn btn-default btn-sm ali-order-add hide" href="javascript:;">Add</a>
                 <svg class="icon-info ml10 link-cursor ali-order-edit"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/app-icons.svg#icon-info"></use></svg>
               <% else %>
@@ -50,7 +50,7 @@
             </span>
 
             <% if aliexpress_order.tracking_code.present? %>
-              <a class="blue-color tracking-link" href="http://track.aftership.com/<%= aliexpress_order.tracking_code %>" target="_blank"><%= aliexpress_order.tracking_code %></a>
+              <a class="blue-color tracking-link" href="https://track.aftership.com/<%= aliexpress_order.tracking_code %>" target="_blank"><%= aliexpress_order.tracking_code %></a>
               <button class="btn-sm btn btn-default tracking-add hide" type="button">Add</button> <!---->
               <svg class="icon-info ml10 link-cursor tracking-edit"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/img/app-icons.svg#icon-info"></use></svg>
             <% else %>

@@ -1,12 +1,23 @@
 module ApplicationHelper
-  def icon_id_from_title(title)
-    case title
-    when 'Manage Products'
+  def icon_id
+    case controller_name
+    when 'products'
       'icon-sidebar-products'
-    when 'Dashboard'
+    when 'dashboard'
       'icon-dashboard'
-    when 'Orders'
+    when 'orders'
       'icon-sidebar-file'
+    end
+  end
+
+  def title
+    case controller_name
+    when 'products'
+      'Products'
+    when 'dashboard'
+      'Dashboard'
+    when 'orders'
+      'Orders'
     end
   end
 end
