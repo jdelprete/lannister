@@ -52,6 +52,8 @@ GEM
     bcrypt (3.1.11)
     bindex (0.5.0)
     builder (3.2.3)
+    by_star (2.2.1)
+      activesupport
     byebug (9.1.0)
     capybara (2.15.2)
       addressable
@@ -81,6 +83,8 @@ GEM
       sass (~> 3.2)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    groupdate (3.2.0)
+      activesupport (>= 3)
     httparty (0.15.6)
       multi_xml (>= 0.5.2)
     i18n (0.8.6)
@@ -212,11 +216,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  by_star (~> 2.2)
   byebug
   capybara (~> 2.13)
   config (~> 1.4.0)
   devise (~> 4.3.0)
   flag-icons-rails (~> 2.5)
+  groupdate (~> 3.2.0)
   httparty (~> 0.15.6)
   jbuilder (~> 2.5)
   jquery-rails (~> 4.3, >= 4.3.1)

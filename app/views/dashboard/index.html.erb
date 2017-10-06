@@ -39,7 +39,8 @@
         <use xlink:href="/img/app-icons.svg#icon-full-arrow-right" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></span></span></a>
       </div> -->
     </div>
-    <!-- <div class="row margin-top">
+
+    <div class="row margin-top">
       <div>
         <div class="col-sm-12 col-md-6">
           <h3 class="dash-filter-title">Total Sales</h3>
@@ -109,50 +110,138 @@
       <div class="col-xs-8">
         <div class="panel">
           <div class="panel-body">
-          <div class="">
-            <div class="chart-legend">
-              <div class="chart-legend-line">
-                <div class="first-legend legend-circle"></div>Sales
+            <div class="">
+              <div class="chart-legend">
+                <div class="chart-legend-line">
+                  <div class="first-legend legend-circle"></div>Sales
+                </div>
+                <div class="chart-legend-line">
+                  <div class="second-legend legend-circle"></div>Cost
+                </div>
               </div>
-              <div class="chart-legend-line">
-                <div class="second-legend legend-circle"></div>Cost
-              </div>
+              <canvas id="myChart" height="255" style="display: block;" width="700"></canvas>
+
+              <script>
+                var ctx = document.getElementById('myChart');
+                var myChart = new Chart(ctx, {
+                  type: 'line',
+                  data: {
+                    datasets: [{
+                      label: 'Sales',
+                      data: <%= format_chart_data(@sales_data) %>,
+                      borderWidth: 2,
+                      backgroundColor: 'rgba(100, 210, 81, 0.5)',
+                      borderColor: 'rgb(100, 210, 81)',
+                      fill: 'origin',
+                    },{
+                      label: 'Earnings',
+                      data: <%= format_chart_data(@cost_data) %>,
+                      borderWidth: 2,
+                      backgroundColor: 'rgba(255, 98, 42, 0.5)',
+                      borderColor: 'rgb(255, 98, 42)',
+                      fill: '-1',
+                    },{
+                      label: 'Orders',
+                      data: <%= format_chart_data(@orders_data) %>,
+                      showLine: false,
+                      pointRadius: 0
+                    }]
+                  },
+
+                  options: {
+                    responsive: true,
+
+                    hover: { 
+                      intersect: false, 
+                      mode: 'index' 
+                    },
+
+                    tooltips: { 
+                      intersect: false,
+                      enabled: false,
+                      mode: 'index',
+                      displayColors: false,
+                      custom: function(tooltipModel) {
+                        // Tooltip Element
+                        var $tooltip = $('#chartjs-tooltip');
+
+                        // Hide if no tooltip
+                        if (tooltipModel.opacity === 0) {
+                          $tooltip.css({
+                            'opacity': 0,
+                            'z-index': -1
+                          });
+                          return;
+                        }
+
+                        // Set Text
+                        if (tooltipModel.body) {
+                          $tooltip.find('.tooltip-title').text(tooltipModel.title.join(' - '));
+
+                          function getBodyRow(header, value) {
+                            return `
+                              <div class="tooltip-body-row">
+                                <div>${header}</div>
+                                <div>${value}</div>
+                              </div>`;
+                          }
+
+                          var dp = tooltipModel.dataPoints;
+
+                          var tooltipBody = getBodyRow(dp[2].yLabel + ' Orders', dp[0].yLabel.toFixed(2) + " <%= @currency %>");
+                          tooltipBody += getBodyRow('Cost', dp[1].yLabel.toFixed(2) + " <%= @currency %>");
+                          tooltipBody += getBodyRow('Earnings', (dp[0].yLabel - dp[1].yLabel).toFixed(2) + " <%= @currency %>");
+
+                          $tooltip.find('.tooltip-body').html(tooltipBody);
+                        }
+
+                        // `this` will be the overall tooltip
+                        var position = this._chart.canvas.getBoundingClientRect();
+
+                        $tooltip.css({
+                          'left': tooltipModel.caretX + 60 + 'px',
+                          'top': tooltipModel.caretY - 80 + 'px',
+                          'opacity': 1,
+                          'z-index': 10
+                        });
+                      }
+
+                    },
+
+                    legend: {
+                      display: false
+                    },
+
+                    scales: {
+                      xAxes: [{
+                        type: "time",
+                        time: {
+                          format: 'MMM D',
+                          round: 'day',
+                          tooltipFormat: 'MMM D',
+                          unit: 'day',
+                          max: new Date()
+                        },
+                        display: true
+                      }],
+                      yAxes: [{
+                        display: true,
+                        stacked: true
+                      }]
+                    }
+                  }
+                });
+              </script>
             </div>
-            <canvas height="255" style="display: block;" width="700"></canvas>
-          </div><img class="data-chart" src="" style="width: 100%; display: none;"></div>
-          <div id="chartjs-tooltip" style="opacity: 0; z-index: -1; left: 172px; top: 111px;">
-            <div class="tooltip-title">
-              2017-09-06
-            </div>
-            <div class="tooltip-body">
-              <div class="tooltip-body-row">
-                <div>
-                  1 Orders
-                </div>
-                <div>
-                  29.99 USD
-                </div>
-              </div>
-              <div class="tooltip-body-row">
-                <div>
-                  Costs
-                </div>
-                <div>
-                  7.19 USD
-                </div>
-              </div>
-              <div class="tooltip-body-row">
-                <div>
-                  Earnings
-                </div>
-                <div>
-                  22.80 USD
-                </div>
-              </div>
-            </div>
+          </div>
+
+          <div id="chartjs-tooltip">
+            <div class="tooltip-title"></div>
+            <div class="tooltip-body"></div>
           </div>
         </div>
       </div>
+
       <div class="col-xs-4">
         <div class="panel dash-metric">
           <div class="panel-header container-flex flex-between">
@@ -164,23 +253,24 @@
           </div>
           <div>
             <div class="dash-metric-row dash-metric-row-merged">
-              <span class="dash-metric-label"><span>Sales</span> <span class="percentage down" title="Old value: 2158USD; Diff: -963USD">▼ 45%</span></span> <span class="number"><span class="number-value">1194.62</span> <span class="number-currency muted-text">USD</span></span>
+              <span class="dash-metric-label"><span>Sales</span> </span> <span class="number"><span class="number-value"><%= @total_sales %></span> <span class="number-currency muted-text"><%= @currency %></span></span>
             </div>
             <div class="dash-metric-row">
-              <span class="dash-metric-label"><span>Orders</span> <span class="percentage down" title="Old value: 82; Diff: -45">▼ 55%</span></span> <span class="number"><span class="number-value">37</span> <span class="number-currency muted-text"></span></span>
+              <span class="dash-metric-label"><span>Orders</span> </span> <span class="number"><span class="number-value"><%= @order_count %></span> <span class="number-currency muted-text"></span></span>
             </div>
             <div class="dash-metric-row">
               <span class="dash-metric-label"><span>Costs</span></span>
-              <div class="info-box" data-original-title="" title=""></div><span class="percentage down" title="Old value: 1058USD; Diff: -738USD">▼ 70%</span> <span class="number"><span class="number-value">319.42</span> <span class="number-currency muted-text">USD</span></span>
+              <span class="number"><span class="number-value"><%= @total_cost %></span> <span class="number-currency muted-text"><%= @currency %></span></span>
             </div>
             <div class="dash-metric-header">
-              <span class="dash-metric-label"><span>Earnings</span> <span class="percentage down" title="Old value: 1100USD; Diff: -225USD">▼ 20%</span></span> <span class="number"><span class="number-value">875.20</span> <span class="number-currency muted-text">USD</span></span>
+              <span class="dash-metric-label"><span>Earnings</span> </span> <span class="number"><span class="number-value"><%= @total_earnings %></span> <span class="number-currency muted-text"><%= @currency %></span></span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row margin-top">
+
+    <!-- <div class="row margin-top">
       <div class="col-xs-12">
         <div class="panel dash-table">
           <div class="panel-header">
@@ -220,6 +310,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div> -->
+    </div> -->
+  </div>
 </div>
