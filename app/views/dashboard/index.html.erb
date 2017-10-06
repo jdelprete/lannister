@@ -49,20 +49,20 @@
           <div class="row date-interval-picker">
             <div class="col-xs-4 relative">
               <div class="input-icon-block">
-                <input class="date form-control input-icon" data-format="yyyy-MM-dd" name="filter[date_from]" placeholder="YYYY-MM-DD" type="text" value="">
-                <div class="add-on">
+                <input class="date form-control input-icon date-from" data-format="yyyy-MM-dd" name="date-from" placeholder="YYYY-MM-DD" type="text" value="" data-toggle="datepicker">
+                <!-- <div class="add-on">
                   <button class="btn-transparent" type="button"><svg class="icon-calendar icon-input">
                   <use xlink:href="/img/app-icons.svg#icon-calendar" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></button>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="col-xs-4 relative">
               <div class="input-icon-block">
-                <input class="date form-control" data-format="yyyy-MM-dd" name="filter[date_to]" placeholder="YYYY-MM-DD" type="text" value="">
-                <div class="add-on">
+                <input class="date form-control date-to" data-format="yyyy-MM-dd" name="date-to" placeholder="YYYY-MM-DD" type="text" value="" data-toggle="datepicker">
+                <!-- <div class="add-on">
                   <button class="btn-transparent" type="button"><svg class="icon-calendar icon-input">
                   <use xlink:href="/img/app-icons.svg#icon-calendar" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></button>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="col-xs-4">
@@ -119,32 +119,43 @@
                   <div class="second-legend legend-circle"></div>Cost
                 </div>
               </div>
-              <canvas id="myChart" height="255" style="display: block;" width="700"></canvas>
+              <canvas id="dashboard-chart" height="255" style="display: block;" width="700"></canvas>
 
               <script>
-                var ctx = document.getElementById('myChart');
-                var myChart = new Chart(ctx, {
+                /**
+                 * Script is placed inline because it requires variables from the controller. js.erb files would mess up with application.js caching
+                 */
+
+                var ctx = document.getElementById('dashboard-chart');
+                var dashboardChart = new Chart(ctx, {
                   type: 'line',
                   data: {
                     datasets: [{
                       label: 'Sales',
-                      data: <%= format_chart_data(@sales_data) %>,
+                      data: <%= raw format_chart_data(@total_price_by_day).to_json %>,
                       borderWidth: 2,
                       backgroundColor: 'rgba(100, 210, 81, 0.5)',
                       borderColor: 'rgb(100, 210, 81)',
                       fill: 'origin',
+                      pointRadius: 0,
+                      pointHoverBorderColor: 'rgb(253, 253, 253)',
+                      pointHoverRadius: 5
                     },{
                       label: 'Earnings',
-                      data: <%= format_chart_data(@cost_data) %>,
+                      data: <%= raw format_chart_data(@total_cost_by_day).to_json %>,
                       borderWidth: 2,
                       backgroundColor: 'rgba(255, 98, 42, 0.5)',
                       borderColor: 'rgb(255, 98, 42)',
                       fill: '-1',
+                      pointRadius: 0,
+                      pointHoverBorderColor: 'rgb(253, 253, 253)',
+                      pointHoverRadius: 5
                     },{
                       label: 'Orders',
-                      data: <%= format_chart_data(@orders_data) %>,
+                      data: <%= raw format_chart_data(@order_count_by_day).to_json %>,
                       showLine: false,
-                      pointRadius: 0
+                      pointRadius: 0,
+                      pointHoverRadius: 0,
                     }]
                   },
 
@@ -219,8 +230,7 @@
                           format: 'MMM D',
                           round: 'day',
                           tooltipFormat: 'MMM D',
-                          unit: 'day',
-                          max: new Date()
+                          unit: 'day'
                         },
                         display: true
                       }],
@@ -253,17 +263,17 @@
           </div>
           <div>
             <div class="dash-metric-row dash-metric-row-merged">
-              <span class="dash-metric-label"><span>Sales</span> </span> <span class="number"><span class="number-value"><%= @total_sales %></span> <span class="number-currency muted-text"><%= @currency %></span></span>
+              <span class="dash-metric-label"><span>Sales</span> </span> <span class="number"><span class="number-value dash-metric-sales"><%= @total_sales %></span> <span class="number-currency muted-text"><%= @currency %></span></span>
             </div>
             <div class="dash-metric-row">
-              <span class="dash-metric-label"><span>Orders</span> </span> <span class="number"><span class="number-value"><%= @order_count %></span> <span class="number-currency muted-text"></span></span>
+              <span class="dash-metric-label"><span>Orders</span> </span> <span class="number"><span class="number-value dash-metric-orders"><%= @order_count %></span> <span class="number-currency muted-text"></span></span>
             </div>
             <div class="dash-metric-row">
               <span class="dash-metric-label"><span>Costs</span></span>
-              <span class="number"><span class="number-value"><%= @total_cost %></span> <span class="number-currency muted-text"><%= @currency %></span></span>
+              <span class="number"><span class="number-value dash-metric-costs"><%= @total_cost %></span> <span class="number-currency muted-text"><%= @currency %></span></span>
             </div>
             <div class="dash-metric-header">
-              <span class="dash-metric-label"><span>Earnings</span> </span> <span class="number"><span class="number-value"><%= @total_earnings %></span> <span class="number-currency muted-text"><%= @currency %></span></span>
+              <span class="dash-metric-label"><span>Earnings</span> </span> <span class="number"><span class="number-value dash-metric-earnings"><%= @total_earnings %></span> <span class="number-currency muted-text"><%= @currency %></span></span>
             </div>
           </div>
         </div>

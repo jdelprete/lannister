@@ -41,6 +41,7 @@ gem 'devise', '~> 4.3.0'
 gem 'openssl'
 gem 'groupdate', '~> 3.2.0'
 gem 'by_star', '~> 2.2'
+gem 'toastr-rails', '~> 1.0.3'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

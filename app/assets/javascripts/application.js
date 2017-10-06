@@ -15,4 +15,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require livesearch
+//= require datepicker.min
+//= require toastr
 //= require_tree .
+
+toastr.options.positionClass = 'toast-bottom-right'

@@ -1,4 +1,4 @@
-$(document).on('ready turbolinks:load', function() {
+$(document).on('turbolinks:load', function() {
   $('.product-tab').on('click', function(e) {
     e.preventDefault();
 

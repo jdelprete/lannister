@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :aliexpress_orders
 
   get '/dashboard', to: 'dashboard#index'
+  get '/dashboard/json', to: 'dashboard#json'
 
   namespace :shopify do
     post '/orders/create', to: '/shopify_webhooks#orders_create'

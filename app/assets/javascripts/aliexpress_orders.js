@@ -1,7 +1,7 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-$(document).on('ready turbolinks:load', function() {
+$(document).on('turbolinks:load', function() {
   $.each(['ali-order', 'tracking'], function(i, category) {
     $(`.${category}-add, .${category}-edit`).on('click', function(e) {
       e.preventDefault();
