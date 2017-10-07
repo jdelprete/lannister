@@ -67,39 +67,18 @@
             </div>
             <div class="col-xs-4">
               <div class="dropdown">
-                <button class="btn btn-default btn-block dropdown-toggle btn-icon btn-icon-right" data-toggle="dropdown" type="button"><span class="btn-icon-text">Select Date Range</span> <span class="btn-icon-wrap"><svg class="icon icon-arrow-more">
-                <use xlink:href="/img/app-icons.svg#icon-arrow-more" xmlns:xlink="http://www.w3.org/1999/xlink"></use></svg></span></button>
-                <div class="dropdown-menu dropdown-menu-right dropdown-select">
-                  <ul>
-                    <li>
-                      <a href="#">Today</a>
-                    </li>
-                    <li>
-                      <a href="#">Yesterday</a>
-                    </li>
-                    <li>
-                      <a href="#">Last 7 days</a>
-                    </li>
-                    <li>
-                      <a href="#">Last 30 days</a>
-                    </li>
-                    <li>
-                      <a href="#">Last 90 days</a>
-                    </li>
-                    <li>
-                      <a href="#">Week to date</a>
-                    </li>
-                    <li>
-                      <a href="#">Month to date</a>
-                    </li>
-                    <li>
-                      <a href="#">Quarter to date</a>
-                    </li>
-                    <li>
-                      <a href="#">Year to date</a>
-                    </li>
-                  </ul>
-                </div>
+                <select class="chart-dropdown btn btn-default btn-block dropdown-toggle btn-icon btn-icon-right" data-toggle="dropdown" type="button">
+                  <option value="today">Today</option>
+                  <option value="yesterday">Yesterday</option>
+                  <option value="last_7" selected>Last 7 days</option>
+                  <option value="last_30">Last 30 days</option>
+                  <option value="last_90">Last 90 days</option>
+                  <option value="week_to_date">Week to date</option>
+                  <option value="month_to_date">Month to date</option>
+                  <option value="quarter_to_date">Quarter to date</option>
+                  <option value="year_to_date">Year to date</option>
+                  <option value="custom">Custom</option>
+                </select>
               </div>
             </div>
           </div>
