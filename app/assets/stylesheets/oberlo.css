@@ -12256,17 +12256,17 @@ svg.color-warning {
   margin-top: auto;
   margin-right: 10px;
   margin-bottom: auto;
-  display: inline-block
+  display: inline-block;
 }
 
 .ask-refund-info,
 .ask-refund-info .icon-exclamation-circle {
   width: 14px;
-  height: 14px
+  height: 14px;
 }
 
 .green-color {
-  color: #82c853
+  color: rgb(40, 150, 21);
 }
 
 .red-color {

@@ -66,7 +66,7 @@ $(document).on('turbolinks:load', function() {
               $form.siblings(`.${category}-add`).show();
               $form.siblings(`.${category}-edit`).hide();
             }
-
+            
             toggleOrderStatus($this.parents('.aliexpress-order'));
           },
 

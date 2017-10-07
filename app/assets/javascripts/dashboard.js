@@ -117,8 +117,8 @@ function getChartData(dateFrom, dateTo) {
     date_to: dateTo,
     date_from: dateFrom
   }, function(data) {
-    dashboardChart.data.datasets[0].data = data.total_price_by_day;
-    dashboardChart.data.datasets[1].data = data.total_cost_by_day;
+    dashboardChart.data.datasets[0].data = data.total_cost_by_day;
+    dashboardChart.data.datasets[1].data = data.total_price_by_day;
     dashboardChart.data.datasets[2].data = data.order_count_by_day;
 
     dashboardChart.update();

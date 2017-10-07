@@ -110,21 +110,21 @@
                   type: 'line',
                   data: {
                     datasets: [{
-                      label: 'Sales',
-                      data: <%= raw format_chart_data(@total_price_by_day).to_json %>,
+                      label: 'Cost',
+                      data: <%= raw format_chart_data(@total_cost_by_day).to_json %>,
                       borderWidth: 2,
-                      backgroundColor: 'rgba(100, 210, 81, 0.5)',
-                      borderColor: 'rgb(100, 210, 81)',
+                      backgroundColor: 'rgba(255, 98, 42, 0.5)',
+                      borderColor: 'rgb(255, 98, 42)',
                       fill: 'origin',
                       pointRadius: 0,
                       pointHoverBorderColor: 'rgb(253, 253, 253)',
                       pointHoverRadius: 5
                     },{
-                      label: 'Earnings',
-                      data: <%= raw format_chart_data(@total_cost_by_day).to_json %>,
+                      label: 'Sales',
+                      data: <%= raw format_chart_data(@total_price_by_day).to_json %>,
                       borderWidth: 2,
-                      backgroundColor: 'rgba(255, 98, 42, 0.5)',
-                      borderColor: 'rgb(255, 98, 42)',
+                      backgroundColor: 'rgba(100, 210, 81, 0.5)',
+                      borderColor: 'rgb(100, 210, 81)',
                       fill: '-1',
                       pointRadius: 0,
                       pointHoverBorderColor: 'rgb(253, 253, 253)',
@@ -178,9 +178,9 @@
 
                           var dp = tooltipModel.dataPoints;
 
-                          var tooltipBody = getBodyRow(dp[2].yLabel + ' Orders', dp[0].yLabel.toFixed(2) + " <%= @currency %>");
-                          tooltipBody += getBodyRow('Cost', dp[1].yLabel.toFixed(2) + " <%= @currency %>");
-                          tooltipBody += getBodyRow('Earnings', (dp[0].yLabel - dp[1].yLabel).toFixed(2) + " <%= @currency %>");
+                          var tooltipBody = getBodyRow(dp[2].yLabel + ' Orders', dp[1].yLabel.toFixed(2) + " <%= @currency %>");
+                          tooltipBody += getBodyRow('Cost', dp[0].yLabel.toFixed(2) + " <%= @currency %>");
+                          tooltipBody += getBodyRow('Earnings', "<span class='green-color'>" + (dp[1].yLabel - dp[0].yLabel).toFixed(2) + " <%= @currency %></span>");
 
                           $tooltip.find('.tooltip-body').html(tooltipBody);
                         }
@@ -214,8 +214,7 @@
                         display: true
                       }],
                       yAxes: [{
-                        display: true,
-                        stacked: true
+                        display: true
                       }]
                     }
                   }
@@ -252,7 +251,7 @@
               <span class="number"><span class="number-value dash-metric-costs"><%= @total_cost %></span> <span class="number-currency muted-text"><%= @currency %></span></span>
             </div>
             <div class="dash-metric-header">
-              <span class="dash-metric-label"><span>Earnings</span> </span> <span class="number"><span class="number-value dash-metric-earnings"><%= @total_earnings %></span> <span class="number-currency muted-text"><%= @currency %></span></span>
+              <span class="dash-metric-label"><span>Earnings</span> </span> <span class="number"><span class="number-value dash-metric-earnings"><%= '%.2f' % @total_earnings %></span> <span class="number-currency muted-text"><%= @currency %></span></span>
             </div>
           </div>
         </div>
