@@ -40,7 +40,7 @@ class DashboardController < ApplicationController
     date_from = date_from.beginning_of_day
     date_to = date_to.end_of_day
 
-    orders = Order.between_times(date_from, date_to, field: :ordered_at)
+    orders = current_user.orders.between_times(date_from, date_to, field: :ordered_at)
 
     # variables for line graph
     orders_by_day = orders.to_a.group_by_day(&:ordered_at)
@@ -52,7 +52,7 @@ class DashboardController < ApplicationController
       total_cost: orders.sum(&:total_cost).round(2),
       total_sales: orders.sum(:total_price).round(2), # doesn't need ampersand since total_price is a column
       order_count: orders.size,
-      currency: Order.last.currency
+      currency: current_user.orders.last.currency
     }
 
     (date_from.to_date..date_to.to_date).each do |date|
