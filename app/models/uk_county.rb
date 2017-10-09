@@ -1,2 +1,0 @@
-class UkCounty < ApplicationRecord
-end

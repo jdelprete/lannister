@@ -32,12 +32,7 @@ class Order < ApplicationRecord
       is_paid: shopify_order.financial_status == 'paid',
       shipping_address: shopify_order.shipping_address.is_a?(Hash) ? shopify_order.shipping_address : shopify_order.shipping_address.attributes
     )
-
-    # if order.shipping_address['country_code'] == 'GB'
-    #   outward = order.shipping_address['zip'].match(/^([A-Z]{1,2}\d{1,2}[A-Z]?)\s*(\d[A-Z]{2})$/).captures.first
-    #   order.shipping_address.province = UkCounties.find_by(postcode_district: outward)
-    # end
-
+    
     if order.save
       logger.info { "Order #{order.shopify_order_number} created" }
     else
