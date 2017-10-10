@@ -22,8 +22,8 @@ class DashboardController < ApplicationController
   def json
     return render json: { error: 'missing parameters date_from or date_to parameters' } unless params[:date_from] && params[:date_to]
 
-    date_from = Time.parse(params[:date_from])
-    date_to = Time.parse(params[:date_to])
+    date_from = ActiveSupport::TimeZone.new(timezone_str).parse(params[:date_from])
+    date_to = ActiveSupport::TimeZone.new(timezone_str).parse(params[:date_to])
 
     chart_data = get_chart_data(date_from, date_to)
     chart_data[:total_price_by_day] = helpers.format_chart_data(chart_data[:total_price_by_day])
@@ -36,19 +36,18 @@ class DashboardController < ApplicationController
   private
 
   def get_chart_data(date_from, date_to)
-
-    date_from = date_from.beginning_of_day
-    date_to = date_to.end_of_day
+    date_from = date_from.in_time_zone(timezone_str).beginning_of_day
+    date_to = date_to.in_time_zone(timezone_str).end_of_day
 
     orders = current_user.orders.between_times(date_from, date_to, field: :ordered_at)
 
     # variables for line graph
-    orders_by_day = orders.to_a.group_by_day(&:ordered_at)
+    orders_by_day = orders.to_a.group_by_day(time_zone: timezone_str) { |o| o.ordered_at }
 
     chart_data = {
-      total_price_by_day: orders.group_by_day(:ordered_at).sum(:total_price),
+      total_price_by_day: orders.group_by_day(:ordered_at, time_zone: timezone_str).sum(:total_price),
       total_cost_by_day: orders_by_day.reduce({}) { |result, (date, orders)| result[date] = orders.sum(&:total_cost) and result },
-      order_count_by_day: orders.group_by_day(:ordered_at).count,
+      order_count_by_day: orders.group_by_day(:ordered_at, time_zone: timezone_str).count,
       total_cost: orders.sum(&:total_cost).round(2),
       total_sales: orders.sum(:total_price).round(2), # doesn't need ampersand since total_price is a column
       order_count: orders.size,
@@ -62,5 +61,9 @@ class DashboardController < ApplicationController
     end
 
     chart_data
+  end
+
+  def timezone_str
+    'Pacific Time (US & US)' # TODO make time zone a user setting
   end
 end

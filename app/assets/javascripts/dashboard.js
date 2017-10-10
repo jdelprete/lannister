@@ -114,8 +114,8 @@ $(document).on('turbolinks:load', function() {
 
 function getChartData(dateFrom, dateTo) {
   $.getJSON('/dashboard/json', {
-    date_to: dateTo,
-    date_from: dateFrom
+    date_to: dateTo.toDateString(),
+    date_from: dateFrom.toDateString()
   }, function(data) {
     dashboardChart.data.datasets[0].data = data.total_cost_by_day;
     dashboardChart.data.datasets[1].data = data.total_price_by_day;

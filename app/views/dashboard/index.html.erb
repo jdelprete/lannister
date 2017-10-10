@@ -100,6 +100,8 @@
               </div>
               <canvas id="dashboard-chart" height="255" style="display: block;" width="700"></canvas>
 
+              <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js' %>
+
               <script>
                 /**
                  * Script is placed inline because it requires variables from the controller. js.erb files would mess up with application.js caching
@@ -209,7 +211,8 @@
                           format: 'MMM D',
                           round: 'day',
                           tooltipFormat: 'MMM D',
-                          unit: 'day'
+                          unit: 'day',
+                          parser: 'YYYY-MM-DD'
                         },
                         display: true
                       }],
