@@ -20,7 +20,7 @@ class DashboardController < ApplicationController
   end
 
   def json
-    return render json: { error: 'missing parameters date_from or date_to parameters' } unless params[:date_from] && params[:date_to]
+    return render json: { error: 'missing parameters date_from or date_to parameters' }, status: 400 unless params[:date_from] && params[:date_to]
 
     date_from = ActiveSupport::TimeZone.new(timezone_str).parse(params[:date_from])
     date_to = ActiveSupport::TimeZone.new(timezone_str).parse(params[:date_to])

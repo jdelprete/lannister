@@ -2,9 +2,6 @@
 // All this logic will automatically be available in application.js.
 
 $(document).on('turbolinks:load', function() {
-  var today = new Date();
-  var sevenDaysAgo = new Date(today.getTime() - daysToMillis(7));
-
   var $dateFromPicker = $('.date-from');
   var $dateToPicker = $('.date-to');
   var $chartDropdown = $('.chart-dropdown');
@@ -12,6 +9,7 @@ $(document).on('turbolinks:load', function() {
   var dateFromDropdown = false; // used to prevent datepicker change from sending ajax request when dropdown is used
   var dateToDropdown = false; // used to prevent datepicker change from sending ajax request when dropdown is used
 
+  var sevenDaysAgo = new Date(new Date().getTime() - daysToMillis(7));
   $dateFromPicker.datepicker({
     autoHide: true,
     format: 'yyyy-mm-dd',
@@ -131,5 +129,5 @@ function getChartData(dateFrom, dateTo) {
 }
 
 function daysToMillis(numDays) {
-  return numDays * 24 * 60 * 60 * 1000;
+  return numDays * 86400000; // 86400000 ms in a day
 }
