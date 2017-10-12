@@ -45,4 +45,14 @@ class ProductsController < ApplicationController
 
     render :json => results
   end
+
+  def aliexpress
+    shopify_id = params[:shopify_id]
+    return render json: { error: 'shopify_id parameter is missing' }, status: 400 unless shopify_id
+
+    product = current_user.products.find_by(shopify_id: shopify_id)
+    return render json: { error: 'product with given shopify_id not found' }, status: 400 unless product
+
+    redirect_to product.url
+  end
 end

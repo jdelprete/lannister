@@ -61,7 +61,7 @@ class Product < ApplicationRecord
     end
 
     # get variants
-    variants = product.get_variants(product_page, variant_objs)
+    product.get_variants(product_page, variant_objs)
 
     product
   end

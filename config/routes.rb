@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/products/import', to: 'products#import_index', as: 'import_index'
   put '/products/:id/import', to: 'products#import', as: 'product_import'
   get '/products/search', to: 'products#search'
+  get '/products/aliexpress', to: 'products#aliexpress'
 
   resources :orders
   resources :aliexpress_orders
