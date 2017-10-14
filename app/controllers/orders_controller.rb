@@ -9,5 +9,6 @@ class OrdersController < ApplicationController
     end
 
     @orders = @orders.where(shopify_id: params[:shopify_id]) if params[:shopify_id]
+    @is_processing_status = params[:status] == 'processing'
   end
 end

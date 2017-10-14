@@ -99,6 +99,10 @@ $(document).on('turbolinks:load', function() {
     $aliExpressOrder.find('.toggle-text').toggle();
     $aliExpressOrder.find('.toggle-chevron').toggleClass('rotate180btn');
   });
+
+  $('.get-all-tracking-codes').on('click', function() {
+    $('.get-tracking-code:visible').click();
+  });
 });
 
 function toggleOrderStatus($order) {

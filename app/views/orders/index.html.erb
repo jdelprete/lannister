@@ -237,7 +237,7 @@
       </div>
     </div>
     <div class="row" style="">
-      <div class="col-md-12 space-small-top space-small-bottom container-flex">
+      <div class="col-md-6 space-small-top space-small-bottom container-flex">
         <h3 class="display-inline">Your orders for 2017-08-18 - 2017-09-17</h3>
         <div class="dropdown dropdown-sm margin-left display-inline">
           <a aria-expanded="false" aria-haspopup="true" class="btn btn-default btn-sm dropdown-toggle btn-dropdown" data-toggle="dropdown" href="#"><span class="btn-icon-text">Export</span> <span class="btn-icon-wrap"><svg class="icon-open">
@@ -253,6 +253,10 @@
             </ul>
           </div>
         </div>
+      </div>
+
+      <div class="col-md-6 space-small-top space-small-bottom container-flex">
+        <% if @is_processing_status %><button class="btn btn-primary get-all-tracking-codes">Get All Tracking Codes</button><% end %>
       </div>
     </div>
     <div class="panel small-padding margin-small-top margin-bottom attention-panel" style="display: none;">
