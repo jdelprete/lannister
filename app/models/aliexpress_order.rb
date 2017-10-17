@@ -18,7 +18,7 @@ class AliexpressOrder < ApplicationRecord
         opt_arr << { ali_sku_prop: opt.ali_sku_prop, ali_sku: opt.ali_sku }
       end
 
-      line_item_arr << { product_url: product.url, quantity: line_item.quantity, variant_options: variant_options }
+      line_item_arr << { product_url: product.affiliate_url || product.url, quantity: line_item.quantity, variant_options: variant_options }
     end
 
     fulfillment_info

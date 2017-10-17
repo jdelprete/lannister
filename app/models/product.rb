@@ -157,6 +157,32 @@ class Product < ApplicationRecord
     end
   end
 
+  def affiliate_url
+    return nil unless user.aliexpress_api_key && user.aliexpress_affiliate_tracking_id
+
+    ali_response = nil
+    begin
+      ali_response = HTTParty.get("http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.getPromotionLinks/#{user.aliexpress_api_key}", query: {
+        fields: 'promotionUrl',
+        trackingId: user.aliexpress_affiliate_tracking_id,
+        urls: url
+      })
+    rescue HTTParty::Error
+      logger.error { "Couldn't get the affiliate url for product ID #{self.id}. HTTP error code is #{ali_response.code}" }
+      return nil
+    rescue StandardError
+      logger.error { "Couldn't get the affiliate url for product ID #{self.id}. Connection error" }
+      return nil
+    end
+
+    if ali_response['errorCode'] != 20010000
+      logger.error { "Couldn't get the affiliate url for product ID #{self.id}. Aliexpress error code: #{ali_response['errorCode']}" }
+      return nil
+    end
+
+    return ali_response['result']['promotionUrls'][0]['promotionUrl']
+  end
+
   def has_many_variants?
     self.product_variants.size + self.indirect_variants.size > 1
   end
