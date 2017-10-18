@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171017174731) do
+ActiveRecord::Schema.define(version: 20171018012410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20171017174731) do
     t.bigint "shopify_id"
     t.bigint "aliexpress_shop_id"
     t.bigint "user_id"
+    t.string "affiliate_url"
     t.index ["aliexpress_shop_id"], name: "index_products_on_aliexpress_shop_id"
     t.index ["user_id"], name: "index_products_on_user_id"
   end

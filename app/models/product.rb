@@ -158,10 +158,14 @@ class Product < ApplicationRecord
   end
 
   def affiliate_url
+    current_affiliate_url = super
+    return current_affiliate_url if current_affiliate_url.present?
+
     return nil unless user.aliexpress_api_key && user.aliexpress_affiliate_tracking_id
 
     ali_response = nil
     begin
+      logger.info { "Retrieving affiliate url for product ID #{self.id} from AliExpress API" }
       ali_response = HTTParty.get("http://gw.api.alibaba.com/openapi/param2/2/portals.open/api.getPromotionLinks/#{user.aliexpress_api_key}", query: {
         fields: 'promotionUrl',
         trackingId: user.aliexpress_affiliate_tracking_id,
@@ -180,7 +184,11 @@ class Product < ApplicationRecord
       return nil
     end
 
-    return ali_response['result']['promotionUrls'][0]['promotionUrl']
+    aff_url = ali_response['result']['promotionUrls'][0]['promotionUrl']
+
+    self.update(affiliate_url: aff_url)
+
+    return aff_url
   end
 
   def has_many_variants?

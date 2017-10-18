@@ -64,6 +64,6 @@ class DashboardController < ApplicationController
   end
 
   def timezone_str
-    'Pacific Time (US & US)' # TODO make time zone a user setting
+    'Pacific Time (US & Canada)' # TODO make time zone a user setting
   end
 end
